@@ -6,15 +6,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta name="description" content="markdown 情境一個Grid，裡面的row是template，按鈕除了編輯刪除，其他按鈕案出來的視窗也是template，在template裡面還有套template，然後都是MVVM去設定事件，在最尾端的一個表單，要做表單驗證，有一個欄位是radio button，多選一，當選到某值時另一文字輸入框欄位就變必填 問題如何在MVVM的model中套用這個特定的required驗證 解題過程我">
+    <meta name="description" content="情境一個 Grid，裡面的 row 是 template，按鈕除了編輯刪除，其他按鈕案出來的視窗也是 template，在 template 裡面還有套 template，然後都是 MVVM 去設定事件，在最尾端的一個表單，要做表單驗證，有一個欄位是 radio button，多選一，當選到某值時另一文字輸入框欄位就變必填 問題如何在 MVVM 的 model 中套用這個特定的 required">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Kendo UI MVVM 自訂Validator規則的問題 | Kendo UI MVVM custom required Validator problem">
 <meta property="og:url" content="https://ian90911.github.io/2018/05/22/Kendo-UI-MVVM-%E8%87%AA%E8%A8%82Validator%E8%A6%8F%E5%89%87%E7%9A%84%E5%95%8F%E9%A1%8C-Kendo-UI-MVVM-custom-required-Validator-problem/index.html">
 <meta property="og:site_name" content="我的程式開發筆記">
-<meta property="og:description" content="markdown 情境一個Grid，裡面的row是template，按鈕除了編輯刪除，其他按鈕案出來的視窗也是template，在template裡面還有套template，然後都是MVVM去設定事件，在最尾端的一個表單，要做表單驗證，有一個欄位是radio button，多選一，當選到某值時另一文字輸入框欄位就變必填 問題如何在MVVM的model中套用這個特定的required驗證 解題過程我">
+<meta property="og:description" content="情境一個 Grid，裡面的 row 是 template，按鈕除了編輯刪除，其他按鈕案出來的視窗也是 template，在 template 裡面還有套 template，然後都是 MVVM 去設定事件，在最尾端的一個表單，要做表單驗證，有一個欄位是 radio button，多選一，當選到某值時另一文字輸入框欄位就變必填 問題如何在 MVVM 的 model 中套用這個特定的 required">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2018-05-22T07:52:06.000Z">
-<meta property="article:modified_time" content="2020-04-15T08:30:08.762Z">
+<meta property="article:modified_time" content="2020-04-23T10:19:50.534Z">
 <meta property="article:author" content="阿燁">
 <meta property="article:tag" content="javascript">
 <meta property="article:tag" content="Kendo UI">
@@ -156,11 +156,10 @@
   
 
   <div class="content" itemprop="articleBody">
-    <p>markdown</p>
-<h1 id="情境"><a href="#情境" class="headerlink" title="情境"></a>情境</h1><p>一個Grid，裡面的row是template，<br>按鈕除了編輯刪除，其他按鈕案出來的視窗也是template，<br>在template裡面還有套template，然後都是MVVM去設定事件，<br>在最尾端的一個表單，要做表單驗證，<br>有一個欄位是radio button，多選一，當選到某值時另一文字輸入框欄位就變必填</p>
-<h1 id="問題"><a href="#問題" class="headerlink" title="問題"></a>問題</h1><p>如何在MVVM的model中套用這個特定的required驗證</p>
-<h1 id="解題過程"><a href="#解題過程" class="headerlink" title="解題過程"></a>解題過程</h1><p>我原本找到去擴充model binding的binder方法的方向<br><a href="https://stackoverflow.com/questions/15945755/set-tag-attribute-based-on-variable-value-with-kendo-binding/15947852#15947852" target="_blank" rel="noopener">https://stackoverflow.com/questions/15945755/set-tag-attribute-based-on-variable-value-with-kendo-binding/15947852#15947852</a><br>但他要做一個html元件的跟一個widget的，名字還有邏輯，沒搞太懂；</p>
-<p>後來轉向套用validator在表單上，雖然不太MVVM，但是可解的方法，<br>可是這個必填欄位不知為何在執行驗證時會跳<br><code>n[t].call is not a function</code><br>錯誤，後來發現 <strong>不能把validator用的物件放在你的MVVM ViewModel</strong>，<br>他在執行遍歷驗證時會抓到observable的一些屬性但無法辨識(例如<code>_events</code>)然後就跳那個錯誤，<br>我本來以為MVVM就是你用到的東西都塞MODEL裡就對了，不過這個情境應該不是這樣放…<br>再來是自訂驗證規則名稱的雷，<br>我原本取名<code>PayAccountRequired</code>，結果竟然讓input不是required也套上required屬性，整個鬼打牆找了很久，後來把規則名稱改成<code>PayAccountRule</code>，竟然就正常了….</p>
+    <h1 id="情境"><a href="#情境" class="headerlink" title="情境"></a>情境</h1><p>一個 Grid，裡面的 row 是 template，<br>按鈕除了編輯刪除，其他按鈕案出來的視窗也是 template，<br>在 template 裡面還有套 template，然後都是 MVVM 去設定事件，<br>在最尾端的一個表單，要做表單驗證，<br>有一個欄位是 radio button，多選一，當選到某值時另一文字輸入框欄位就變必填</p>
+<h1 id="問題"><a href="#問題" class="headerlink" title="問題"></a>問題</h1><p>如何在 MVVM 的 model 中套用這個特定的 required 驗證</p>
+<h1 id="解題過程"><a href="#解題過程" class="headerlink" title="解題過程"></a>解題過程</h1><p>我原本找到去擴充 model binding 的 binder 方法的方向<br><a href="https://stackoverflow.com/questions/15945755/set-tag-attribute-based-on-variable-value-with-kendo-binding/15947852#15947852" target="_blank" rel="noopener">https://stackoverflow.com/questions/15945755/set-tag-attribute-based-on-variable-value-with-kendo-binding/15947852#15947852</a><br>但他要做一個 html 元件的跟一個 widget 的，名字還有邏輯，沒搞太懂；</p>
+<p>後來轉向套用 validator 在表單上，雖然不太 MVVM，但是可解的方法，<br>可是這個必填欄位不知為何在執行驗證時會跳<br><code>n[t].call is not a function</code><br>錯誤，後來發現 <strong>不能把 validator 用的物件放在你的 MVVM ViewModel</strong>，<br>他在執行遍歷驗證時會抓到 observable 的一些屬性但無法辨識(例如<code>_events</code>)然後就跳那個錯誤，<br>我本來以為 MVVM 就是你用到的東西都塞 MODEL 裡就對了，不過這個情境應該不是這樣放…<br>再來是自訂驗證規則名稱的雷，<br>我原本取名<code>PayAccountRequired</code>，結果竟然讓 input 不是 required 也套上 required 屬性，整個鬼打牆找了很久，後來把規則名稱改成<code>PayAccountRule</code>，竟然就正常了….</p>
 <p>從來沒想到這個驗證會讓我卡好幾個小時….</p>
 <p>完成的範例<br><a href="http://jsfiddle.net/o8ym26jj/2/" target="_blank" rel="noopener">http://jsfiddle.net/o8ym26jj/2/</a></p>
 

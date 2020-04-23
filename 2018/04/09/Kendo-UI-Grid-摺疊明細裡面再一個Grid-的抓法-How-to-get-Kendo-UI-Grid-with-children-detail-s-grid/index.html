@@ -6,15 +6,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta name="description" content="#背景同事在寫的應用:一個 GRID 裡面有子 GRID資料在展開 master row 時才會去抓但不知道怎麼抓 #解法我第一個想法是在 master grid 展開前先記住外面 row 的 uid，再用 uid 反推 index，再用 index 去抓到 row，再抓到裡面的 grid，但很麻煩； 他研究很久後發現在 master grid 的 detailInit 事件做 detail gr">
+    <meta name="description" content="背景同事在寫的應用:一個 GRID 裡面有子 GRID資料在展開 master row 時才會去抓但不知道怎麼抓 #解法我第一個想法是在 master grid 展開前先記住外面 row 的 uid，再用 uid 反推 index，再用 index 去抓到 row，再抓到裡面的 grid，但很麻煩； 他研究很久後發現在 master grid 的 detailInit 事件做 detail gri">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Kendo UI Grid 摺疊明細裡面再一個Grid 的抓法 | How to get Kendo UI Grid with children detail&#39;s grid">
 <meta property="og:url" content="https://ian90911.github.io/2018/04/09/Kendo-UI-Grid-%E6%91%BA%E7%96%8A%E6%98%8E%E7%B4%B0%E8%A3%A1%E9%9D%A2%E5%86%8D%E4%B8%80%E5%80%8BGrid-%E7%9A%84%E6%8A%93%E6%B3%95-How-to-get-Kendo-UI-Grid-with-children-detail-s-grid/index.html">
 <meta property="og:site_name" content="我的程式開發筆記">
-<meta property="og:description" content="#背景同事在寫的應用:一個 GRID 裡面有子 GRID資料在展開 master row 時才會去抓但不知道怎麼抓 #解法我第一個想法是在 master grid 展開前先記住外面 row 的 uid，再用 uid 反推 index，再用 index 去抓到 row，再抓到裡面的 grid，但很麻煩； 他研究很久後發現在 master grid 的 detailInit 事件做 detail gr">
+<meta property="og:description" content="背景同事在寫的應用:一個 GRID 裡面有子 GRID資料在展開 master row 時才會去抓但不知道怎麼抓 #解法我第一個想法是在 master grid 展開前先記住外面 row 的 uid，再用 uid 反推 index，再用 index 去抓到 row，再抓到裡面的 grid，但很麻煩； 他研究很久後發現在 master grid 的 detailInit 事件做 detail gri">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2018-04-09T03:27:27.000Z">
-<meta property="article:modified_time" content="2020-04-23T10:08:41.409Z">
+<meta property="article:modified_time" content="2020-04-23T10:19:51.931Z">
 <meta property="article:author" content="阿燁">
 <meta property="article:tag" content="Kendo UI">
 <meta property="article:tag" content="Kendo UI-Grid">
@@ -110,7 +110,7 @@
 
     </div>
     <div id="toc">
-      
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#背景"><span class="toc-number">1.</span> <span class="toc-text">背景</span></a></li></ol>
     </div>
   </span>
 </div>
@@ -154,7 +154,7 @@
   
 
   <div class="content" itemprop="articleBody">
-    <p>#背景<br>同事在寫的應用:一個 GRID 裡面有子 GRID<br>資料在展開 master row 時才會去抓<br>但不知道怎麼抓</p>
+    <h1 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h1><p>同事在寫的應用:一個 GRID 裡面有子 GRID<br>資料在展開 master row 時才會去抓<br>但不知道怎麼抓</p>
 <p>#解法<br>我第一個想法是在 master grid 展開前先記住外面 row 的 uid，<br>再用 uid 反推 index，再用 index 去抓到 row，再抓到裡面的 grid，但很麻煩；</p>
 <p>他研究很久後發現在 master grid 的 detailInit 事件做 detail grid 宣告，<br>detail grid 裡的 databound 事件<br>可以用</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="keyword">this</span>.element[<span class="number">0</span>]).data(<span class="string">'kendoGrid'</span>);</span><br></pre></td></tr></table></figure>
@@ -185,7 +185,7 @@
     </div>
 
     <div id="toc-footer" style="display: none">
-      
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#背景"><span class="toc-number">1.</span> <span class="toc-text">背景</span></a></li></ol>
     </div>
 
     <div id="share-footer" style="display: none">
