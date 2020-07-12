@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="1234567891011121314151617181920212223SELECT    c.name &#39;欄位名稱&#39;,    ep.value AS &#39;欄位備註&#39;,    t.Name &#39;欄位型態&#39;,    c.max_length &#39;最大byte&#39;,    c.precision &#39;總位數&#39;,    c.scale &#39;小數位數&#39;,    c.is_nullable &#39;是否可為空&#39;,    I">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SQLServer 找表格所有欄位 欄位型態 欄位備註 | SQLServer query table column type and comment">
+<meta property="og:url" content="https://ian90911.github.io/2018/03/14/SQLServer-%E6%89%BE%E8%A1%A8%E6%A0%BC%E6%89%80%E6%9C%89%E6%AC%84%E4%BD%8D-%E6%AC%84%E4%BD%8D%E5%9E%8B%E6%85%8B-%E6%AC%84%E4%BD%8D%E5%82%99%E8%A8%BB-SQLServer-query-table-column-type-and-comment/index.html">
+<meta property="og:site_name" content="我的程式開發筆記">
+<meta property="og:description" content="1234567891011121314151617181920212223SELECT    c.name &#39;欄位名稱&#39;,    ep.value AS &#39;欄位備註&#39;,    t.Name &#39;欄位型態&#39;,    c.max_length &#39;最大byte&#39;,    c.precision &#39;總位數&#39;,    c.scale &#39;小數位數&#39;,    c.is_nullable &#39;是否可為空&#39;,    I">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2018-03-14T03:11:39.000Z">
+<meta property="article:modified_time" content="2020-07-12T01:23:23.877Z">
+<meta property="article:author" content="阿燁">
+<meta property="article:tag" content="SQLServer">
+<meta property="article:tag" content="SQL">
+<meta name="twitter:card" content="summary">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>SQLServer 找表格所有欄位 欄位型態 欄位備註 | SQLServer query table column type and comment</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+      
+<link rel="stylesheet" href="/css/rtl.css">
+
+    
+    <!-- rss -->
+    
+    
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/projects_url">Projects</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/2018/04/09/Kendo-UI-Grid-%E6%91%BA%E7%96%8A%E6%98%8E%E7%B4%B0%E8%A3%A1%E9%9D%A2%E5%86%8D%E4%B8%80%E5%80%8BGrid-%E7%9A%84%E6%8A%93%E6%B3%95-How-to-get-Kendo-UI-Grid-with-children-detail-s-grid/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" href="/2018/03/14/IIS-%E5%AE%89%E8%A3%9DWindows-%E9%A9%97%E8%AD%89%E5%8A%9F%E8%83%BD-%E9%9C%80%E8%A6%81%E9%87%8D%E9%96%8B%E6%A9%9F%E5%97%8E-Does-IIS-after-install-Windows-authentication-function-need-restart/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://ian90911.github.io/2018/03/14/SQLServer-%E6%89%BE%E8%A1%A8%E6%A0%BC%E6%89%80%E6%9C%89%E6%AC%84%E4%BD%8D-%E6%AC%84%E4%BD%8D%E5%9E%8B%E6%85%8B-%E6%AC%84%E4%BD%8D%E5%82%99%E8%A8%BB-SQLServer-query-table-column-type-and-comment/" target="_blank" rel="noopener"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://ian90911.github.io/2018/03/14/SQLServer-%E6%89%BE%E8%A1%A8%E6%A0%BC%E6%89%80%E6%9C%89%E6%AC%84%E4%BD%8D-%E6%AC%84%E4%BD%8D%E5%9E%8B%E6%85%8B-%E6%AC%84%E4%BD%8D%E5%82%99%E8%A8%BB-SQLServer-query-table-column-type-and-comment/&text=SQLServer 找表格所有欄位 欄位型態 欄位備註 | SQLServer query table column type and comment" target="_blank" rel="noopener"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://ian90911.github.io/2018/03/14/SQLServer-%E6%89%BE%E8%A1%A8%E6%A0%BC%E6%89%80%E6%9C%89%E6%AC%84%E4%BD%8D-%E6%AC%84%E4%BD%8D%E5%9E%8B%E6%85%8B-%E6%AC%84%E4%BD%8D%E5%82%99%E8%A8%BB-SQLServer-query-table-column-type-and-comment/&title=SQLServer 找表格所有欄位 欄位型態 欄位備註 | SQLServer query table column type and comment" target="_blank" rel="noopener"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://ian90911.github.io/2018/03/14/SQLServer-%E6%89%BE%E8%A1%A8%E6%A0%BC%E6%89%80%E6%9C%89%E6%AC%84%E4%BD%8D-%E6%AC%84%E4%BD%8D%E5%9E%8B%E6%85%8B-%E6%AC%84%E4%BD%8D%E5%82%99%E8%A8%BB-SQLServer-query-table-column-type-and-comment/&is_video=false&description=SQLServer 找表格所有欄位 欄位型態 欄位備註 | SQLServer query table column type and comment" target="_blank" rel="noopener"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=SQLServer 找表格所有欄位 欄位型態 欄位備註 | SQLServer query table column type and comment&body=Check out this article: https://ian90911.github.io/2018/03/14/SQLServer-%E6%89%BE%E8%A1%A8%E6%A0%BC%E6%89%80%E6%9C%89%E6%AC%84%E4%BD%8D-%E6%AC%84%E4%BD%8D%E5%9E%8B%E6%85%8B-%E6%AC%84%E4%BD%8D%E5%82%99%E8%A8%BB-SQLServer-query-table-column-type-and-comment/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://ian90911.github.io/2018/03/14/SQLServer-%E6%89%BE%E8%A1%A8%E6%A0%BC%E6%89%80%E6%9C%89%E6%AC%84%E4%BD%8D-%E6%AC%84%E4%BD%8D%E5%9E%8B%E6%85%8B-%E6%AC%84%E4%BD%8D%E5%82%99%E8%A8%BB-SQLServer-query-table-column-type-and-comment/&title=SQLServer 找表格所有欄位 欄位型態 欄位備註 | SQLServer query table column type and comment" target="_blank" rel="noopener"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://ian90911.github.io/2018/03/14/SQLServer-%E6%89%BE%E8%A1%A8%E6%A0%BC%E6%89%80%E6%9C%89%E6%AC%84%E4%BD%8D-%E6%AC%84%E4%BD%8D%E5%9E%8B%E6%85%8B-%E6%AC%84%E4%BD%8D%E5%82%99%E8%A8%BB-SQLServer-query-table-column-type-and-comment/&title=SQLServer 找表格所有欄位 欄位型態 欄位備註 | SQLServer query table column type and comment" target="_blank" rel="noopener"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://ian90911.github.io/2018/03/14/SQLServer-%E6%89%BE%E8%A1%A8%E6%A0%BC%E6%89%80%E6%9C%89%E6%AC%84%E4%BD%8D-%E6%AC%84%E4%BD%8D%E5%9E%8B%E6%85%8B-%E6%AC%84%E4%BD%8D%E5%82%99%E8%A8%BB-SQLServer-query-table-column-type-and-comment/&title=SQLServer 找表格所有欄位 欄位型態 欄位備註 | SQLServer query table column type and comment" target="_blank" rel="noopener"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://ian90911.github.io/2018/03/14/SQLServer-%E6%89%BE%E8%A1%A8%E6%A0%BC%E6%89%80%E6%9C%89%E6%AC%84%E4%BD%8D-%E6%AC%84%E4%BD%8D%E5%9E%8B%E6%85%8B-%E6%AC%84%E4%BD%8D%E5%82%99%E8%A8%BB-SQLServer-query-table-column-type-and-comment/&title=SQLServer 找表格所有欄位 欄位型態 欄位備註 | SQLServer query table column type and comment" target="_blank" rel="noopener"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://ian90911.github.io/2018/03/14/SQLServer-%E6%89%BE%E8%A1%A8%E6%A0%BC%E6%89%80%E6%9C%89%E6%AC%84%E4%BD%8D-%E6%AC%84%E4%BD%8D%E5%9E%8B%E6%85%8B-%E6%AC%84%E4%BD%8D%E5%82%99%E8%A8%BB-SQLServer-query-table-column-type-and-comment/&name=SQLServer 找表格所有欄位 欄位型態 欄位備註 | SQLServer query table column type and comment&description=" target="_blank" rel="noopener"><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://news.ycombinator.com/submitlink?u=https://ian90911.github.io/2018/03/14/SQLServer-%E6%89%BE%E8%A1%A8%E6%A0%BC%E6%89%80%E6%9C%89%E6%AC%84%E4%BD%8D-%E6%AC%84%E4%BD%8D%E5%9E%8B%E6%85%8B-%E6%AC%84%E4%BD%8D%E5%82%99%E8%A8%BB-SQLServer-query-table-column-type-and-comment/&t=SQLServer 找表格所有欄位 欄位型態 欄位備註 | SQLServer query table column type and comment" target="_blank" rel="noopener"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        SQLServer 找表格所有欄位 欄位型態 欄位備註 | SQLServer query table column type and comment
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">我的程式開發筆記</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2018-03-14T03:11:39.000Z" itemprop="datePublished">2018-03-14</time>
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link" href="/tags/SQL/" rel="tag">SQL</a>, <a class="tag-link" href="/tags/SQLServer/" rel="tag">SQLServer</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span></span><br><span class="line">    c.name <span class="string">'欄位名稱'</span>,</span><br><span class="line">    ep.value <span class="keyword">AS</span> <span class="string">'欄位備註'</span>,</span><br><span class="line">    t.Name <span class="string">'欄位型態'</span>,</span><br><span class="line">    c.max_length <span class="string">'最大byte'</span>,</span><br><span class="line">    c.precision <span class="string">'總位數'</span>,</span><br><span class="line">    c.scale <span class="string">'小數位數'</span>,</span><br><span class="line">    c.is_nullable <span class="string">'是否可為空'</span>,</span><br><span class="line">    <span class="keyword">ISNULL</span>(i.is_primary_key, <span class="number">0</span>) <span class="string">'是否是PK'</span></span><br><span class="line"><span class="keyword">FROM</span></span><br><span class="line">    sys.columns c</span><br><span class="line"><span class="keyword">INNER</span> <span class="keyword">JOIN</span></span><br><span class="line">    sys.types t <span class="keyword">ON</span> c.user_type_id = t.user_type_id</span><br><span class="line"><span class="keyword">INNER</span> <span class="keyword">JOIN</span> sys.objects <span class="keyword">ON</span> sys.objects.object_id = c.object_id</span><br><span class="line"><span class="keyword">LEFT</span> <span class="keyword">OUTER</span> <span class="keyword">JOIN</span></span><br><span class="line">    sys.index_columns ic <span class="keyword">ON</span> ic.object_id = c.object_id <span class="keyword">AND</span> ic.column_id = c.column_id</span><br><span class="line"><span class="keyword">LEFT</span> <span class="keyword">OUTER</span> <span class="keyword">JOIN</span></span><br><span class="line">    sys.indexes i <span class="keyword">ON</span> ic.object_id = i.object_id <span class="keyword">AND</span> ic.index_id = i.index_id</span><br><span class="line"><span class="keyword">OUTER</span> <span class="keyword">APPLY</span> fn_listextendedproperty(<span class="keyword">default</span>,</span><br><span class="line">                  <span class="string">'SCHEMA'</span>, schema_name(sys.objects.schema_id),</span><br><span class="line">                  <span class="string">'TABLE'</span>, sys.objects.name, <span class="string">'COLUMN'</span>, c.name) ep</span><br><span class="line"><span class="keyword">WHERE</span></span><br><span class="line">    c.object_id = OBJECT_ID(<span class="string">'your table name'</span>)</span><br></pre></td></tr></table></figure>
+
+<p>ref:<br><a href="https://stackoverflow.com/questions/2418527/sql-server-query-to-get-the-list-of-columns-in-a-table-along-with-data-types-no" target="_blank" rel="noopener">https://stackoverflow.com/questions/2418527/sql-server-query-to-get-the-list-of-columns-in-a-table-along-with-data-types-no</a><br><a href="https://devio.wordpress.com/2009/08/19/retrieving-table-and-column-descriptions-in-sql-server/" target="_blank" rel="noopener">https://devio.wordpress.com/2009/08/19/retrieving-table-and-column-descriptions-in-sql-server/</a></p>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/projects_url">Projects</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://ian90911.github.io/2018/03/14/SQLServer-%E6%89%BE%E8%A1%A8%E6%A0%BC%E6%89%80%E6%9C%89%E6%AC%84%E4%BD%8D-%E6%AC%84%E4%BD%8D%E5%9E%8B%E6%85%8B-%E6%AC%84%E4%BD%8D%E5%82%99%E8%A8%BB-SQLServer-query-table-column-type-and-comment/" target="_blank" rel="noopener"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://ian90911.github.io/2018/03/14/SQLServer-%E6%89%BE%E8%A1%A8%E6%A0%BC%E6%89%80%E6%9C%89%E6%AC%84%E4%BD%8D-%E6%AC%84%E4%BD%8D%E5%9E%8B%E6%85%8B-%E6%AC%84%E4%BD%8D%E5%82%99%E8%A8%BB-SQLServer-query-table-column-type-and-comment/&text=SQLServer 找表格所有欄位 欄位型態 欄位備註 | SQLServer query table column type and comment" target="_blank" rel="noopener"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://ian90911.github.io/2018/03/14/SQLServer-%E6%89%BE%E8%A1%A8%E6%A0%BC%E6%89%80%E6%9C%89%E6%AC%84%E4%BD%8D-%E6%AC%84%E4%BD%8D%E5%9E%8B%E6%85%8B-%E6%AC%84%E4%BD%8D%E5%82%99%E8%A8%BB-SQLServer-query-table-column-type-and-comment/&title=SQLServer 找表格所有欄位 欄位型態 欄位備註 | SQLServer query table column type and comment" target="_blank" rel="noopener"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://ian90911.github.io/2018/03/14/SQLServer-%E6%89%BE%E8%A1%A8%E6%A0%BC%E6%89%80%E6%9C%89%E6%AC%84%E4%BD%8D-%E6%AC%84%E4%BD%8D%E5%9E%8B%E6%85%8B-%E6%AC%84%E4%BD%8D%E5%82%99%E8%A8%BB-SQLServer-query-table-column-type-and-comment/&is_video=false&description=SQLServer 找表格所有欄位 欄位型態 欄位備註 | SQLServer query table column type and comment" target="_blank" rel="noopener"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=SQLServer 找表格所有欄位 欄位型態 欄位備註 | SQLServer query table column type and comment&body=Check out this article: https://ian90911.github.io/2018/03/14/SQLServer-%E6%89%BE%E8%A1%A8%E6%A0%BC%E6%89%80%E6%9C%89%E6%AC%84%E4%BD%8D-%E6%AC%84%E4%BD%8D%E5%9E%8B%E6%85%8B-%E6%AC%84%E4%BD%8D%E5%82%99%E8%A8%BB-SQLServer-query-table-column-type-and-comment/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://ian90911.github.io/2018/03/14/SQLServer-%E6%89%BE%E8%A1%A8%E6%A0%BC%E6%89%80%E6%9C%89%E6%AC%84%E4%BD%8D-%E6%AC%84%E4%BD%8D%E5%9E%8B%E6%85%8B-%E6%AC%84%E4%BD%8D%E5%82%99%E8%A8%BB-SQLServer-query-table-column-type-and-comment/&title=SQLServer 找表格所有欄位 欄位型態 欄位備註 | SQLServer query table column type and comment" target="_blank" rel="noopener"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://ian90911.github.io/2018/03/14/SQLServer-%E6%89%BE%E8%A1%A8%E6%A0%BC%E6%89%80%E6%9C%89%E6%AC%84%E4%BD%8D-%E6%AC%84%E4%BD%8D%E5%9E%8B%E6%85%8B-%E6%AC%84%E4%BD%8D%E5%82%99%E8%A8%BB-SQLServer-query-table-column-type-and-comment/&title=SQLServer 找表格所有欄位 欄位型態 欄位備註 | SQLServer query table column type and comment" target="_blank" rel="noopener"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://ian90911.github.io/2018/03/14/SQLServer-%E6%89%BE%E8%A1%A8%E6%A0%BC%E6%89%80%E6%9C%89%E6%AC%84%E4%BD%8D-%E6%AC%84%E4%BD%8D%E5%9E%8B%E6%85%8B-%E6%AC%84%E4%BD%8D%E5%82%99%E8%A8%BB-SQLServer-query-table-column-type-and-comment/&title=SQLServer 找表格所有欄位 欄位型態 欄位備註 | SQLServer query table column type and comment" target="_blank" rel="noopener"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://ian90911.github.io/2018/03/14/SQLServer-%E6%89%BE%E8%A1%A8%E6%A0%BC%E6%89%80%E6%9C%89%E6%AC%84%E4%BD%8D-%E6%AC%84%E4%BD%8D%E5%9E%8B%E6%85%8B-%E6%AC%84%E4%BD%8D%E5%82%99%E8%A8%BB-SQLServer-query-table-column-type-and-comment/&title=SQLServer 找表格所有欄位 欄位型態 欄位備註 | SQLServer query table column type and comment" target="_blank" rel="noopener"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://ian90911.github.io/2018/03/14/SQLServer-%E6%89%BE%E8%A1%A8%E6%A0%BC%E6%89%80%E6%9C%89%E6%AC%84%E4%BD%8D-%E6%AC%84%E4%BD%8D%E5%9E%8B%E6%85%8B-%E6%AC%84%E4%BD%8D%E5%82%99%E8%A8%BB-SQLServer-query-table-column-type-and-comment/&name=SQLServer 找表格所有欄位 欄位型態 欄位備註 | SQLServer query table column type and comment&description=" target="_blank" rel="noopener"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://news.ycombinator.com/submitlink?u=https://ian90911.github.io/2018/03/14/SQLServer-%E6%89%BE%E8%A1%A8%E6%A0%BC%E6%89%80%E6%9C%89%E6%AC%84%E4%BD%8D-%E6%AC%84%E4%BD%8D%E5%9E%8B%E6%85%8B-%E6%AC%84%E4%BD%8D%E5%82%99%E8%A8%BB-SQLServer-query-table-column-type-and-comment/&t=SQLServer 找表格所有欄位 欄位型態 欄位備註 | SQLServer query table column type and comment" target="_blank" rel="noopener"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2016-2020
+    阿燁
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/projects_url">Projects</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+
+    <!-- jquery -->
+
+<script src="/lib/jquery/jquery.min.js"></script>
+
+
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+
+<!-- clipboard -->
+
+  
+<script src="/lib/clipboard/clipboard.min.js"></script>
+
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Disqus Comments -->
+
+
+</body>
+</html>

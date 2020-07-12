@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="最近在設定 Azure Function 的定時觸發類型程式的 CRON 運算式寫好之後不太確定自己寫得到底對不對研究了一下後有兩個做法 1. 本地偵錯模式2. 用工具網站https:&#x2F;&#x2F;crontab.guru&#x2F; 本地偵錯模式本地執行後 Console 視窗上會寫目前執行中的 Timer Trigger Function 有哪些以及列出這個 Function 之後會執行的五個時間點給你看，如圖：">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Azure Function Timer Trigger Cron 運算式 如何確定寫好的式子是想要的">
+<meta property="og:url" content="https://ian90911.github.io/2018/09/07/Azure-Function-Timer-Trigger-Cron-%E9%81%8B%E7%AE%97%E5%BC%8F-%E5%A6%82%E4%BD%95%E7%A2%BA%E5%AE%9A%E5%AF%AB%E5%A5%BD%E7%9A%84%E5%BC%8F%E5%AD%90%E6%98%AF%E6%83%B3%E8%A6%81%E7%9A%84/index.html">
+<meta property="og:site_name" content="我的程式開發筆記">
+<meta property="og:description" content="最近在設定 Azure Function 的定時觸發類型程式的 CRON 運算式寫好之後不太確定自己寫得到底對不對研究了一下後有兩個做法 1. 本地偵錯模式2. 用工具網站https:&#x2F;&#x2F;crontab.guru&#x2F; 本地偵錯模式本地執行後 Console 視窗上會寫目前執行中的 Timer Trigger Function 有哪些以及列出這個 Function 之後會執行的五個時間點給你看，如圖：">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://1.bp.blogspot.com/-3ByNVIEN1Js/W5HTrtNBaJI/AAAAAAAAA3g/JGjUwxO7DoUbZTHL_NLqoW5cHlsxyee5wCLcBGAs/s1600/TIMER.png">
+<meta property="og:image" content="https://4.bp.blogspot.com/-_DzIkZg2hW4/W5HUv7FZ9RI/AAAAAAAAA3o/Zoz7SVe7QVs6y2Vi6NIjI34IO3iHb47BACLcBGAs/s1600/cron.png">
+<meta property="article:published_time" content="2018-09-07T01:32:04.000Z">
+<meta property="article:modified_time" content="2020-07-12T01:23:23.776Z">
+<meta property="article:author" content="阿燁">
+<meta property="article:tag" content="Azure">
+<meta property="article:tag" content="Azure Function">
+<meta property="article:tag" content="Azure Function Timer Trigger">
+<meta property="article:tag" content="CRON">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://1.bp.blogspot.com/-3ByNVIEN1Js/W5HTrtNBaJI/AAAAAAAAA3g/JGjUwxO7DoUbZTHL_NLqoW5cHlsxyee5wCLcBGAs/s1600/TIMER.png">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>Azure Function Timer Trigger Cron 運算式 如何確定寫好的式子是想要的</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+      
+<link rel="stylesheet" href="/css/rtl.css">
+
+    
+    <!-- rss -->
+    
+    
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/projects_url">Projects</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/2018/11/22/Database-Project-%E7%B5%90%E6%A7%8B%E6%8F%8F%E8%BF%B0%E6%AF%94%E8%BC%83%E6%99%82%E5%87%BA%E7%8F%BE-%E7%9B%AE%E6%A8%99%E7%84%A1%E6%B3%95%E4%BD%BF%E7%94%A8-SQL-Schema-Comparison-Error-%E2%80%9CTarget-is-unavailable%E2%80%9D/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" href="/2018/08/09/%E6%89%BE%E5%87%BA%E6%9F%90%E5%80%8Bnamespace%E4%B8%8B%E6%89%80%E6%9C%89%E9%A1%9E%E5%88%A5%E8%A3%A1%E9%9D%A2%E6%9C%89%E5%93%AA%E4%BA%9B%E9%A1%9E%E5%88%A5%E7%9A%84%E5%93%AA%E4%BA%9B%E5%B1%AC%E6%80%A7%E4%B8%8D%E6%98%AF%E5%96%AE%E7%B4%94%E7%9A%84get-set-find-out-class-that-have-not-simple-getter-setter-property-in-specific-name-space/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://ian90911.github.io/2018/09/07/Azure-Function-Timer-Trigger-Cron-%E9%81%8B%E7%AE%97%E5%BC%8F-%E5%A6%82%E4%BD%95%E7%A2%BA%E5%AE%9A%E5%AF%AB%E5%A5%BD%E7%9A%84%E5%BC%8F%E5%AD%90%E6%98%AF%E6%83%B3%E8%A6%81%E7%9A%84/" target="_blank" rel="noopener"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://ian90911.github.io/2018/09/07/Azure-Function-Timer-Trigger-Cron-%E9%81%8B%E7%AE%97%E5%BC%8F-%E5%A6%82%E4%BD%95%E7%A2%BA%E5%AE%9A%E5%AF%AB%E5%A5%BD%E7%9A%84%E5%BC%8F%E5%AD%90%E6%98%AF%E6%83%B3%E8%A6%81%E7%9A%84/&text=Azure Function Timer Trigger Cron 運算式 如何確定寫好的式子是想要的" target="_blank" rel="noopener"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://ian90911.github.io/2018/09/07/Azure-Function-Timer-Trigger-Cron-%E9%81%8B%E7%AE%97%E5%BC%8F-%E5%A6%82%E4%BD%95%E7%A2%BA%E5%AE%9A%E5%AF%AB%E5%A5%BD%E7%9A%84%E5%BC%8F%E5%AD%90%E6%98%AF%E6%83%B3%E8%A6%81%E7%9A%84/&title=Azure Function Timer Trigger Cron 運算式 如何確定寫好的式子是想要的" target="_blank" rel="noopener"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://ian90911.github.io/2018/09/07/Azure-Function-Timer-Trigger-Cron-%E9%81%8B%E7%AE%97%E5%BC%8F-%E5%A6%82%E4%BD%95%E7%A2%BA%E5%AE%9A%E5%AF%AB%E5%A5%BD%E7%9A%84%E5%BC%8F%E5%AD%90%E6%98%AF%E6%83%B3%E8%A6%81%E7%9A%84/&is_video=false&description=Azure Function Timer Trigger Cron 運算式 如何確定寫好的式子是想要的" target="_blank" rel="noopener"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Azure Function Timer Trigger Cron 運算式 如何確定寫好的式子是想要的&body=Check out this article: https://ian90911.github.io/2018/09/07/Azure-Function-Timer-Trigger-Cron-%E9%81%8B%E7%AE%97%E5%BC%8F-%E5%A6%82%E4%BD%95%E7%A2%BA%E5%AE%9A%E5%AF%AB%E5%A5%BD%E7%9A%84%E5%BC%8F%E5%AD%90%E6%98%AF%E6%83%B3%E8%A6%81%E7%9A%84/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://ian90911.github.io/2018/09/07/Azure-Function-Timer-Trigger-Cron-%E9%81%8B%E7%AE%97%E5%BC%8F-%E5%A6%82%E4%BD%95%E7%A2%BA%E5%AE%9A%E5%AF%AB%E5%A5%BD%E7%9A%84%E5%BC%8F%E5%AD%90%E6%98%AF%E6%83%B3%E8%A6%81%E7%9A%84/&title=Azure Function Timer Trigger Cron 運算式 如何確定寫好的式子是想要的" target="_blank" rel="noopener"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://ian90911.github.io/2018/09/07/Azure-Function-Timer-Trigger-Cron-%E9%81%8B%E7%AE%97%E5%BC%8F-%E5%A6%82%E4%BD%95%E7%A2%BA%E5%AE%9A%E5%AF%AB%E5%A5%BD%E7%9A%84%E5%BC%8F%E5%AD%90%E6%98%AF%E6%83%B3%E8%A6%81%E7%9A%84/&title=Azure Function Timer Trigger Cron 運算式 如何確定寫好的式子是想要的" target="_blank" rel="noopener"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://ian90911.github.io/2018/09/07/Azure-Function-Timer-Trigger-Cron-%E9%81%8B%E7%AE%97%E5%BC%8F-%E5%A6%82%E4%BD%95%E7%A2%BA%E5%AE%9A%E5%AF%AB%E5%A5%BD%E7%9A%84%E5%BC%8F%E5%AD%90%E6%98%AF%E6%83%B3%E8%A6%81%E7%9A%84/&title=Azure Function Timer Trigger Cron 運算式 如何確定寫好的式子是想要的" target="_blank" rel="noopener"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://ian90911.github.io/2018/09/07/Azure-Function-Timer-Trigger-Cron-%E9%81%8B%E7%AE%97%E5%BC%8F-%E5%A6%82%E4%BD%95%E7%A2%BA%E5%AE%9A%E5%AF%AB%E5%A5%BD%E7%9A%84%E5%BC%8F%E5%AD%90%E6%98%AF%E6%83%B3%E8%A6%81%E7%9A%84/&title=Azure Function Timer Trigger Cron 運算式 如何確定寫好的式子是想要的" target="_blank" rel="noopener"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://ian90911.github.io/2018/09/07/Azure-Function-Timer-Trigger-Cron-%E9%81%8B%E7%AE%97%E5%BC%8F-%E5%A6%82%E4%BD%95%E7%A2%BA%E5%AE%9A%E5%AF%AB%E5%A5%BD%E7%9A%84%E5%BC%8F%E5%AD%90%E6%98%AF%E6%83%B3%E8%A6%81%E7%9A%84/&name=Azure Function Timer Trigger Cron 運算式 如何確定寫好的式子是想要的&description=" target="_blank" rel="noopener"><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://news.ycombinator.com/submitlink?u=https://ian90911.github.io/2018/09/07/Azure-Function-Timer-Trigger-Cron-%E9%81%8B%E7%AE%97%E5%BC%8F-%E5%A6%82%E4%BD%95%E7%A2%BA%E5%AE%9A%E5%AF%AB%E5%A5%BD%E7%9A%84%E5%BC%8F%E5%AD%90%E6%98%AF%E6%83%B3%E8%A6%81%E7%9A%84/&t=Azure Function Timer Trigger Cron 運算式 如何確定寫好的式子是想要的" target="_blank" rel="noopener"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#本地偵錯模式"><span class="toc-number">1.</span> <span class="toc-text">本地偵錯模式</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#crontab-guru"><span class="toc-number">2.</span> <span class="toc-text">crontab guru</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        Azure Function Timer Trigger Cron 運算式 如何確定寫好的式子是想要的
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">我的程式開發筆記</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2018-09-07T01:32:04.000Z" itemprop="datePublished">2018-09-07</time>
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link" href="/tags/Azure/" rel="tag">Azure</a>, <a class="tag-link" href="/tags/Azure-Function/" rel="tag">Azure Function</a>, <a class="tag-link" href="/tags/Azure-Function-Timer-Trigger/" rel="tag">Azure Function Timer Trigger</a>, <a class="tag-link" href="/tags/CRON/" rel="tag">CRON</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <p>最近在設定 Azure Function 的定時觸發類型程式的 CRON 運算式<br>寫好之後不太確定自己寫得到底對不對<br>研究了一下後有兩個做法</p>
+<p>1. 本地偵錯模式<br>2. 用工具網站<a href="https://crontab.guru/" target="_blank" rel="noopener">https://crontab.guru/</a></p>
+<h1 id="本地偵錯模式"><a href="#本地偵錯模式" class="headerlink" title="本地偵錯模式"></a>本地偵錯模式</h1><p>本地執行後 Console 視窗上會寫目前執行中的 Timer Trigger Function 有哪些<br>以及列出這個 Function 之後會執行的五個時間點給你看，如圖：</p>
+<p><img src="https://1.bp.blogspot.com/-3ByNVIEN1Js/W5HTrtNBaJI/AAAAAAAAA3g/JGjUwxO7DoUbZTHL_NLqoW5cHlsxyee5wCLcBGAs/s1600/TIMER.png" alt=""></p>
+<h1 id="crontab-guru"><a href="#crontab-guru" class="headerlink" title="crontab guru"></a>crontab guru</h1><p>網站網址:<a href="https://crontab.guru/" target="_blank" rel="noopener">https://crontab.guru/</a></p>
+<p>Azure Function 的 Timer Trigger 文件部分其實就有寫，時間運算式使用的是<a href="https://github.com/atifaziz/NCrontab" target="_blank" rel="noopener">NCronTab</a> 這個 LIB 來處理，所以就往「CRON 運算式 確認」的方向去 google，然後就找到這個網站，<br>雖然他比 Azure 少一層秒數的表達式，但也是可以提供一個參考，<br>直接把打好的表達式輸入進去，就可以看到你寫的會以怎樣的週期去執行：<br><img src="https://4.bp.blogspot.com/-_DzIkZg2hW4/W5HUv7FZ9RI/AAAAAAAAA3o/Zoz7SVe7QVs6y2Vi6NIjI34IO3iHb47BACLcBGAs/s1600/cron.png" alt=""><br>不知道有沒有人做給 Azure Function 用的版本，不然還是比較方便</p>
+<hr>
+<p>後來找到這個網站，正符合 Azure 的格式<br><a href="https://cronexpressiondescriptor.azurewebsites.net/" target="_blank" rel="noopener">Cron Expression Descriptor</a></p>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/projects_url">Projects</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#本地偵錯模式"><span class="toc-number">1.</span> <span class="toc-text">本地偵錯模式</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#crontab-guru"><span class="toc-number">2.</span> <span class="toc-text">crontab guru</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://ian90911.github.io/2018/09/07/Azure-Function-Timer-Trigger-Cron-%E9%81%8B%E7%AE%97%E5%BC%8F-%E5%A6%82%E4%BD%95%E7%A2%BA%E5%AE%9A%E5%AF%AB%E5%A5%BD%E7%9A%84%E5%BC%8F%E5%AD%90%E6%98%AF%E6%83%B3%E8%A6%81%E7%9A%84/" target="_blank" rel="noopener"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://ian90911.github.io/2018/09/07/Azure-Function-Timer-Trigger-Cron-%E9%81%8B%E7%AE%97%E5%BC%8F-%E5%A6%82%E4%BD%95%E7%A2%BA%E5%AE%9A%E5%AF%AB%E5%A5%BD%E7%9A%84%E5%BC%8F%E5%AD%90%E6%98%AF%E6%83%B3%E8%A6%81%E7%9A%84/&text=Azure Function Timer Trigger Cron 運算式 如何確定寫好的式子是想要的" target="_blank" rel="noopener"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://ian90911.github.io/2018/09/07/Azure-Function-Timer-Trigger-Cron-%E9%81%8B%E7%AE%97%E5%BC%8F-%E5%A6%82%E4%BD%95%E7%A2%BA%E5%AE%9A%E5%AF%AB%E5%A5%BD%E7%9A%84%E5%BC%8F%E5%AD%90%E6%98%AF%E6%83%B3%E8%A6%81%E7%9A%84/&title=Azure Function Timer Trigger Cron 運算式 如何確定寫好的式子是想要的" target="_blank" rel="noopener"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://ian90911.github.io/2018/09/07/Azure-Function-Timer-Trigger-Cron-%E9%81%8B%E7%AE%97%E5%BC%8F-%E5%A6%82%E4%BD%95%E7%A2%BA%E5%AE%9A%E5%AF%AB%E5%A5%BD%E7%9A%84%E5%BC%8F%E5%AD%90%E6%98%AF%E6%83%B3%E8%A6%81%E7%9A%84/&is_video=false&description=Azure Function Timer Trigger Cron 運算式 如何確定寫好的式子是想要的" target="_blank" rel="noopener"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Azure Function Timer Trigger Cron 運算式 如何確定寫好的式子是想要的&body=Check out this article: https://ian90911.github.io/2018/09/07/Azure-Function-Timer-Trigger-Cron-%E9%81%8B%E7%AE%97%E5%BC%8F-%E5%A6%82%E4%BD%95%E7%A2%BA%E5%AE%9A%E5%AF%AB%E5%A5%BD%E7%9A%84%E5%BC%8F%E5%AD%90%E6%98%AF%E6%83%B3%E8%A6%81%E7%9A%84/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://ian90911.github.io/2018/09/07/Azure-Function-Timer-Trigger-Cron-%E9%81%8B%E7%AE%97%E5%BC%8F-%E5%A6%82%E4%BD%95%E7%A2%BA%E5%AE%9A%E5%AF%AB%E5%A5%BD%E7%9A%84%E5%BC%8F%E5%AD%90%E6%98%AF%E6%83%B3%E8%A6%81%E7%9A%84/&title=Azure Function Timer Trigger Cron 運算式 如何確定寫好的式子是想要的" target="_blank" rel="noopener"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://ian90911.github.io/2018/09/07/Azure-Function-Timer-Trigger-Cron-%E9%81%8B%E7%AE%97%E5%BC%8F-%E5%A6%82%E4%BD%95%E7%A2%BA%E5%AE%9A%E5%AF%AB%E5%A5%BD%E7%9A%84%E5%BC%8F%E5%AD%90%E6%98%AF%E6%83%B3%E8%A6%81%E7%9A%84/&title=Azure Function Timer Trigger Cron 運算式 如何確定寫好的式子是想要的" target="_blank" rel="noopener"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://ian90911.github.io/2018/09/07/Azure-Function-Timer-Trigger-Cron-%E9%81%8B%E7%AE%97%E5%BC%8F-%E5%A6%82%E4%BD%95%E7%A2%BA%E5%AE%9A%E5%AF%AB%E5%A5%BD%E7%9A%84%E5%BC%8F%E5%AD%90%E6%98%AF%E6%83%B3%E8%A6%81%E7%9A%84/&title=Azure Function Timer Trigger Cron 運算式 如何確定寫好的式子是想要的" target="_blank" rel="noopener"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://ian90911.github.io/2018/09/07/Azure-Function-Timer-Trigger-Cron-%E9%81%8B%E7%AE%97%E5%BC%8F-%E5%A6%82%E4%BD%95%E7%A2%BA%E5%AE%9A%E5%AF%AB%E5%A5%BD%E7%9A%84%E5%BC%8F%E5%AD%90%E6%98%AF%E6%83%B3%E8%A6%81%E7%9A%84/&title=Azure Function Timer Trigger Cron 運算式 如何確定寫好的式子是想要的" target="_blank" rel="noopener"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://ian90911.github.io/2018/09/07/Azure-Function-Timer-Trigger-Cron-%E9%81%8B%E7%AE%97%E5%BC%8F-%E5%A6%82%E4%BD%95%E7%A2%BA%E5%AE%9A%E5%AF%AB%E5%A5%BD%E7%9A%84%E5%BC%8F%E5%AD%90%E6%98%AF%E6%83%B3%E8%A6%81%E7%9A%84/&name=Azure Function Timer Trigger Cron 運算式 如何確定寫好的式子是想要的&description=" target="_blank" rel="noopener"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://news.ycombinator.com/submitlink?u=https://ian90911.github.io/2018/09/07/Azure-Function-Timer-Trigger-Cron-%E9%81%8B%E7%AE%97%E5%BC%8F-%E5%A6%82%E4%BD%95%E7%A2%BA%E5%AE%9A%E5%AF%AB%E5%A5%BD%E7%9A%84%E5%BC%8F%E5%AD%90%E6%98%AF%E6%83%B3%E8%A6%81%E7%9A%84/&t=Azure Function Timer Trigger Cron 運算式 如何確定寫好的式子是想要的" target="_blank" rel="noopener"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2016-2020
+    阿燁
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/projects_url">Projects</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+
+    <!-- jquery -->
+
+<script src="/lib/jquery/jquery.min.js"></script>
+
+
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+
+<!-- clipboard -->
+
+  
+<script src="/lib/clipboard/clipboard.min.js"></script>
+
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Disqus Comments -->
+
+
+</body>
+</html>
