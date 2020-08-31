@@ -2,6 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://ian90911.github.io/2020/08/31/hexo%E5%AF%AB%E4%BD%9C%E8%88%87%E7%99%BC%E4%BD%88%E6%8C%87%E4%BB%A4/</loc>
+    
+    <lastmod>2020-08-31T09:25:24.530Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://ian90911.github.io/2020/07/12/NPOI-in-dot-net-core-in-docker-ubuntu-throw-System-TypeInitializationException/</loc>
+    
+    <lastmod>2020-08-11T08:30:09.881Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://ian90911.github.io/2020/07/08/asp-Net-MVC-Model-validate-Enum-%E5%80%BC%E9%9D%9E%E6%B3%95-asp-Net-MVC-Model-Validate-enum-illegal/</loc>
     
     <lastmod>2020-07-08T08:41:54.679Z</lastmod>
