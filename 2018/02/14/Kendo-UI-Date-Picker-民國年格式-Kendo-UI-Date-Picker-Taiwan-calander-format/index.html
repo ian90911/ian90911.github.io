@@ -1,17 +1,31 @@
 <!DOCTYPE html>
-<html lang=en>
+<html lang="en">
 <head>
-    <!-- so meta -->
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="HandheldFriendly" content="True">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta name="description" content="背景一個 Grid，在編輯時用 popup，內容是 template，有個日期欄位，使用者想要輸入 1060101 或者 10601011735 這種日期或日期時間格式不想要選取也不想要打「-」、空白或「:」 研究了一下也提問在官方討論區了，官方是說不支援民國年這種格式，實際上你輸入 1900 年之前的日期，也會無法 set，所以也不能用民國 106 年直接套上 DatePicker&#x2F;DateTi">
-<meta property="og:type" content="article">
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 7.0.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha256-CTSx/A06dm1B063156EVh15m6Y67pAjZZaQc89LLSrU=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"ian90911.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.18.2","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12},"copycode":{"enable":true,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="背景一個 Grid，在編輯時用 popup，內容是 template，有個日期欄位，使用者想要輸入 1060101 或者 10601011735 這種日期或日期時間格式不想要選取也不想要打「-」、空白或「:」 研究了一下也提問在官方討論區了，官方是說不支援民國年這種格式，實際上你輸入 1900 年之前的日期，也會無法 set，所以也不能用民國 106 年直接套上 DatePicker&#x2F;D">
+<meta property="og:type" content="blog">
 <meta property="og:title" content="Kendo UI Date Picker 民國年格式 |  Kendo UI Date Picker Taiwan calander format">
 <meta property="og:url" content="https://ian90911.github.io/2018/02/14/Kendo-UI-Date-Picker-%E6%B0%91%E5%9C%8B%E5%B9%B4%E6%A0%BC%E5%BC%8F-Kendo-UI-Date-Picker-Taiwan-calander-format/index.html">
 <meta property="og:site_name" content="我的程式開發筆記">
-<meta property="og:description" content="背景一個 Grid，在編輯時用 popup，內容是 template，有個日期欄位，使用者想要輸入 1060101 或者 10601011735 這種日期或日期時間格式不想要選取也不想要打「-」、空白或「:」 研究了一下也提問在官方討論區了，官方是說不支援民國年這種格式，實際上你輸入 1900 年之前的日期，也會無法 set，所以也不能用民國 106 年直接套上 DatePicker&#x2F;DateTi">
+<meta property="og:description" content="背景一個 Grid，在編輯時用 popup，內容是 template，有個日期欄位，使用者想要輸入 1060101 或者 10601011735 這種日期或日期時間格式不想要選取也不想要打「-」、空白或「:」 研究了一下也提問在官方討論區了，官方是說不支援民國年這種格式，實際上你輸入 1900 年之前的日期，也會無法 set，所以也不能用民國 106 年直接套上 DatePicker&#x2F;D">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2018-02-14T06:18:04.000Z">
 <meta property="article:modified_time" content="2020-07-12T01:23:23.833Z">
@@ -21,293 +35,303 @@
 <meta property="article:tag" content="Kendo UI">
 <meta property="article:tag" content="Kendo UI-Grid">
 <meta property="article:tag" content="Kendo UI-DataSource">
+<meta property="article:tag" content="DatePicker">
+<meta property="article:tag" content="Kendo UI-DateTimePicker">
 <meta property="article:tag" content="Kendo UI-Validation">
 <meta property="article:tag" content="民國年">
-<meta property="article:tag" content="Kendo UI-DateTimePicker">
-<meta property="article:tag" content="DatePicker">
 <meta name="twitter:card" content="summary">
-    
-    
-        
-          
-              <link rel="shortcut icon" href="/images/favicon.ico">
-          
-        
-        
-          
-            <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
-          
-        
-        
-          
-            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
-          
-        
-    
-    <!-- title -->
-    <title>Kendo UI Date Picker 民國年格式 |  Kendo UI Date Picker Taiwan calander format</title>
-    <!-- styles -->
-    
-<link rel="stylesheet" href="/css/style.css">
 
-    <!-- persian styles -->
-    
-      
-<link rel="stylesheet" href="/css/rtl.css">
 
-    
-    <!-- rss -->
-    
-    
-<meta name="generator" content="Hexo 4.2.0"></head>
-
-<body class="max-width mx-auto px3 ltr">
-    
-      <div id="header-post">
-  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
-  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
-  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
-  <span id="menu">
-    <span id="nav">
-      <ul>
-         
-          <li><a href="/">Home</a></li>
-         
-          <li><a href="/about/">About</a></li>
-         
-          <li><a href="/archives/">Writing</a></li>
-         
-          <li><a href="/projects_url">Projects</a></li>
-        
-      </ul>
-    </span>
-    <br/>
-    <span id="actions">
-      <ul>
-        
-        <li><a class="icon" href="/2018/03/02/%E5%BE%AE%E8%BB%9F%E6%AD%A3%E9%BB%91%E9%AB%94font-weight%E7%9C%8B%E4%B8%8D%E5%87%BA%E7%B2%97%E7%B4%B0%E5%95%8F%E9%A1%8C/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
-        
-        
-        <li><a class="icon" href="/2018/02/05/LUIS%E8%A8%93%E7%B7%B4%E7%AD%86%E8%A8%98/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
-        
-        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
-        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
-      </ul>
-      <span id="i-prev" class="info" style="display:none;">Previous post</span>
-      <span id="i-next" class="info" style="display:none;">Next post</span>
-      <span id="i-top" class="info" style="display:none;">Back to top</span>
-      <span id="i-share" class="info" style="display:none;">Share post</span>
-    </span>
-    <br/>
-    <div id="share" style="display: none">
-      <ul>
-  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://ian90911.github.io/2018/02/14/Kendo-UI-Date-Picker-%E6%B0%91%E5%9C%8B%E5%B9%B4%E6%A0%BC%E5%BC%8F-Kendo-UI-Date-Picker-Taiwan-calander-format/" target="_blank" rel="noopener"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://twitter.com/share?url=https://ian90911.github.io/2018/02/14/Kendo-UI-Date-Picker-%E6%B0%91%E5%9C%8B%E5%B9%B4%E6%A0%BC%E5%BC%8F-Kendo-UI-Date-Picker-Taiwan-calander-format/&text=Kendo UI Date Picker 民國年格式 |  Kendo UI Date Picker Taiwan calander format" target="_blank" rel="noopener"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://ian90911.github.io/2018/02/14/Kendo-UI-Date-Picker-%E6%B0%91%E5%9C%8B%E5%B9%B4%E6%A0%BC%E5%BC%8F-Kendo-UI-Date-Picker-Taiwan-calander-format/&title=Kendo UI Date Picker 民國年格式 |  Kendo UI Date Picker Taiwan calander format" target="_blank" rel="noopener"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://ian90911.github.io/2018/02/14/Kendo-UI-Date-Picker-%E6%B0%91%E5%9C%8B%E5%B9%B4%E6%A0%BC%E5%BC%8F-Kendo-UI-Date-Picker-Taiwan-calander-format/&is_video=false&description=Kendo UI Date Picker 民國年格式 |  Kendo UI Date Picker Taiwan calander format" target="_blank" rel="noopener"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=Kendo UI Date Picker 民國年格式 |  Kendo UI Date Picker Taiwan calander format&body=Check out this article: https://ian90911.github.io/2018/02/14/Kendo-UI-Date-Picker-%E6%B0%91%E5%9C%8B%E5%B9%B4%E6%A0%BC%E5%BC%8F-Kendo-UI-Date-Picker-Taiwan-calander-format/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://getpocket.com/save?url=https://ian90911.github.io/2018/02/14/Kendo-UI-Date-Picker-%E6%B0%91%E5%9C%8B%E5%B9%B4%E6%A0%BC%E5%BC%8F-Kendo-UI-Date-Picker-Taiwan-calander-format/&title=Kendo UI Date Picker 民國年格式 |  Kendo UI Date Picker Taiwan calander format" target="_blank" rel="noopener"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://reddit.com/submit?url=https://ian90911.github.io/2018/02/14/Kendo-UI-Date-Picker-%E6%B0%91%E5%9C%8B%E5%B9%B4%E6%A0%BC%E5%BC%8F-Kendo-UI-Date-Picker-Taiwan-calander-format/&title=Kendo UI Date Picker 民國年格式 |  Kendo UI Date Picker Taiwan calander format" target="_blank" rel="noopener"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://ian90911.github.io/2018/02/14/Kendo-UI-Date-Picker-%E6%B0%91%E5%9C%8B%E5%B9%B4%E6%A0%BC%E5%BC%8F-Kendo-UI-Date-Picker-Taiwan-calander-format/&title=Kendo UI Date Picker 民國年格式 |  Kendo UI Date Picker Taiwan calander format" target="_blank" rel="noopener"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://digg.com/submit?url=https://ian90911.github.io/2018/02/14/Kendo-UI-Date-Picker-%E6%B0%91%E5%9C%8B%E5%B9%B4%E6%A0%BC%E5%BC%8F-Kendo-UI-Date-Picker-Taiwan-calander-format/&title=Kendo UI Date Picker 民國年格式 |  Kendo UI Date Picker Taiwan calander format" target="_blank" rel="noopener"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://ian90911.github.io/2018/02/14/Kendo-UI-Date-Picker-%E6%B0%91%E5%9C%8B%E5%B9%B4%E6%A0%BC%E5%BC%8F-Kendo-UI-Date-Picker-Taiwan-calander-format/&name=Kendo UI Date Picker 民國年格式 |  Kendo UI Date Picker Taiwan calander format&description=" target="_blank" rel="noopener"><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://news.ycombinator.com/submitlink?u=https://ian90911.github.io/2018/02/14/Kendo-UI-Date-Picker-%E6%B0%91%E5%9C%8B%E5%B9%B4%E6%A0%BC%E5%BC%8F-Kendo-UI-Date-Picker-Taiwan-calander-format/&t=Kendo UI Date Picker 民國年格式 |  Kendo UI Date Picker Taiwan calander format" target="_blank" rel="noopener"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
-</ul>
-
-    </div>
-    <div id="toc">
-      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#背景"><span class="toc-number">1.</span> <span class="toc-text">背景</span></a></li></ol>
-    </div>
-  </span>
-</div>
-
-    
-    <div class="content index py4">
-        
-        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
-  <header>
-    
-    <h1 class="posttitle" itemprop="name headline">
-        Kendo UI Date Picker 民國年格式 |  Kendo UI Date Picker Taiwan calander format
-    </h1>
+<link rel="canonical" href="https://ian90911.github.io/2018/02/14/Kendo-UI-Date-Picker-%E6%B0%91%E5%9C%8B%E5%B9%B4%E6%A0%BC%E5%BC%8F-Kendo-UI-Date-Picker-Taiwan-calander-format/">
 
 
 
-    <div class="meta">
-      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
-        <span itemprop="name">我的程式開發筆記</span>
-      </span>
-      
-    <div class="postdate">
-      
-        <time datetime="2018-02-14T06:18:04.000Z" itemprop="datePublished">2018-02-14</time>
-        
-      
-    </div>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"https://ian90911.github.io/2018/02/14/Kendo-UI-Date-Picker-%E6%B0%91%E5%9C%8B%E5%B9%B4%E6%A0%BC%E5%BC%8F-Kendo-UI-Date-Picker-Taiwan-calander-format/","path":"/2018/02/14/Kendo-UI-Date-Picker-民國年格式-Kendo-UI-Date-Picker-Taiwan-calander-format/","title":"Kendo UI Date Picker 民國年格式 |  Kendo UI Date Picker Taiwan calander format"}</script>
 
-
-      
-
-      
-    <div class="article-tag">
-        <i class="fas fa-tag"></i>
-        <a class="tag-link" href="/tags/DatePicker/" rel="tag">DatePicker</a>, <a class="tag-link" href="/tags/DateTimePicker/" rel="tag">DateTimePicker</a>, <a class="tag-link" href="/tags/Kendo-UI/" rel="tag">Kendo UI</a>, <a class="tag-link" href="/tags/Kendo-UI-DataSource/" rel="tag">Kendo UI-DataSource</a>, <a class="tag-link" href="/tags/Kendo-UI-DateTimePicker/" rel="tag">Kendo UI-DateTimePicker</a>, <a class="tag-link" href="/tags/Kendo-UI-Grid/" rel="tag">Kendo UI-Grid</a>, <a class="tag-link" href="/tags/Kendo-UI-Validation/" rel="tag">Kendo UI-Validation</a>, <a class="tag-link" href="/tags/javascript/" rel="tag">javascript</a>, <a class="tag-link" href="/tags/%E6%B0%91%E5%9C%8B%E5%B9%B4/" rel="tag">民國年</a>
-    </div>
-
-
-    </div>
-  </header>
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Kendo UI Date Picker 民國年格式 |  Kendo UI Date Picker Taiwan calander format | 我的程式開發筆記</title>
   
 
-  <div class="content" itemprop="articleBody">
-    <h1 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h1><p>一個 Grid，在編輯時用 popup，內容是 template，<br>有個日期欄位，<br>使用者想要輸入 1060101 或者 10601011735 這種日期或日期時間格式<br>不想要選取也不想要打「-」、空白或「:」</p>
-<p>研究了一下也提問在官方討論區了，官方是說不支援民國年這種格式，<br>實際上你輸入 1900 年之前的日期，也會無法 set，<br>所以也不能用民國 106 年直接套上 DatePicker/DateTimePicker，而且萬年曆也會不對，</p>
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">我的程式開發筆記</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a></li>
+  </ul>
+</nav>
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%83%8C%E6%99%AF"><span class="nav-number">1.</span> <span class="nav-text">背景</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="阿燁"
+      src="https://avatars1.githubusercontent.com/u/11989158?s=460&u=23905cc56471a44e17bb541d4a2bfa888a0fcf01&v=4">
+  <p class="site-author-name" itemprop="name">阿燁</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">30</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">94</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/ian90911/" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;ian90911&#x2F;" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.facebook.com/AaYeah/" title="FB Page → https:&#x2F;&#x2F;www.facebook.com&#x2F;AaYeah&#x2F;" rel="noopener me" target="_blank"><i class="fab fa-facebook fa-fw"></i>FB Page</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:ian90911@gmail.com" title="E-Mail → mailto:ian90911@gmail.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://ian90911.github.io/2018/02/14/Kendo-UI-Date-Picker-%E6%B0%91%E5%9C%8B%E5%B9%B4%E6%A0%BC%E5%BC%8F-Kendo-UI-Date-Picker-Taiwan-calander-format/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://avatars1.githubusercontent.com/u/11989158?s=460&u=23905cc56471a44e17bb541d4a2bfa888a0fcf01&v=4">
+      <meta itemprop="name" content="阿燁">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="我的程式開發筆記">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Kendo UI Date Picker 民國年格式 |  Kendo UI Date Picker Taiwan calander format | 我的程式開發筆記">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Kendo UI Date Picker 民國年格式 |  Kendo UI Date Picker Taiwan calander format
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2018-02-14 14:18:04" itemprop="dateCreated datePublished" datetime="2018-02-14T14:18:04+08:00">2018-02-14</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2020-07-12 09:23:23" itemprop="dateModified" datetime="2020-07-12T09:23:23+08:00">2020-07-12</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h1 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h1><p>一個 Grid，在編輯時用 popup，內容是 template，<br>有個日期欄位，<br>使用者想要輸入 1060101 或者 10601011735 這種日期或日期時間格式<br>不想要選取也不想要打「-」、空白或「:」</p>
+<p>研究了一下也提問在官方討論區了，官方是說不支援民國年這種格式，<br>實際上你輸入 1900 年之前的日期，也會無法 set，<br>所以也不能用民國 106 年直接套上 DatePicker&#x2F;DateTimePicker，而且萬年曆也會不對，</p>
 <p>這裡就用 textbox 自幹一個字串轉日期的方法<br>(如果想要讓後端收到的值仍然有「-」、空白或「:」，是可以搭配 mask)</p>
 <p>首先在原本的 template 的時間輸入框前面加入一個 input textbox</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span></span></span><br><span class="line"><span class="tag">  <span class="attr">class</span>=<span class="string">"k-textbox"</span></span></span><br><span class="line"><span class="tag">  <span class="attr">data-bind</span>=<span class="string">"value:myDateTW"</span></span></span><br><span class="line"><span class="tag">  <span class="attr">id</span>=<span class="string">"myDateTW"</span></span></span><br><span class="line"><span class="tag">  <span class="attr">name</span>=<span class="string">"myDateTW"</span></span></span><br><span class="line"><span class="tag">  <span class="attr">placeholder</span>=<span class="string">"民國年yyyMMdd"</span></span></span><br><span class="line"><span class="tag">  <span class="attr">style</span>=<span class="string">"width: 200px;"</span></span></span><br><span class="line"><span class="tag">  <span class="attr">tabindex</span>=<span class="string">"110"</span></span></span><br><span class="line"><span class="tag">/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"k-invalid-msg"</span> <span class="attr">data-for</span>=<span class="string">"myDateTW"</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">input</span></span></span><br><span class="line"><span class="tag">  <span class="attr">data-bind</span>=<span class="string">"value:myDate"</span></span></span><br><span class="line"><span class="tag">  <span class="attr">id</span>=<span class="string">"myDate"</span></span></span><br><span class="line"><span class="tag">  <span class="attr">name</span>=<span class="string">"myDate"</span></span></span><br><span class="line"><span class="tag">  <span class="attr">style</span>=<span class="string">"display: none; width: 250px;"</span></span></span><br><span class="line"><span class="tag">  <span class="attr">tabindex</span>=<span class="string">"110"</span></span></span><br><span class="line"><span class="tag">/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"k-invalid-msg"</span> <span class="attr">data-for</span>=<span class="string">"myDate"</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span></span></span><br><span class="line"><span class="tag">  <span class="attr">class</span>=<span class="string">&quot;k-textbox&quot;</span></span></span><br><span class="line"><span class="tag">  <span class="attr">data-bind</span>=<span class="string">&quot;value:myDateTW&quot;</span></span></span><br><span class="line"><span class="tag">  <span class="attr">id</span>=<span class="string">&quot;myDateTW&quot;</span></span></span><br><span class="line"><span class="tag">  <span class="attr">name</span>=<span class="string">&quot;myDateTW&quot;</span></span></span><br><span class="line"><span class="tag">  <span class="attr">placeholder</span>=<span class="string">&quot;民國年yyyMMdd&quot;</span></span></span><br><span class="line"><span class="tag">  <span class="attr">style</span>=<span class="string">&quot;width: 200px;&quot;</span></span></span><br><span class="line"><span class="tag">  <span class="attr">tabindex</span>=<span class="string">&quot;110&quot;</span></span></span><br><span class="line"><span class="tag">/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">&quot;k-invalid-msg&quot;</span> <span class="attr">data-for</span>=<span class="string">&quot;myDateTW&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">input</span></span></span><br><span class="line"><span class="tag">  <span class="attr">data-bind</span>=<span class="string">&quot;value:myDate&quot;</span></span></span><br><span class="line"><span class="tag">  <span class="attr">id</span>=<span class="string">&quot;myDate&quot;</span></span></span><br><span class="line"><span class="tag">  <span class="attr">name</span>=<span class="string">&quot;myDate&quot;</span></span></span><br><span class="line"><span class="tag">  <span class="attr">style</span>=<span class="string">&quot;display: none; width: 250px;&quot;</span></span></span><br><span class="line"><span class="tag">  <span class="attr">tabindex</span>=<span class="string">&quot;110&quot;</span></span></span><br><span class="line"><span class="tag">/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">&quot;k-invalid-msg&quot;</span> <span class="attr">data-for</span>=<span class="string">&quot;myDate&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
 <p>然後準備好字串轉日期、日期轉字串的處理，<br>這裡列的方法是我很直觀的去寫，沒有做什麼效能分析</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//傳入值與格式，分析與轉換成JS日期物件</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">parseTWDate</span>(<span class="params">val, format</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> result = &#123; <span class="attr">result</span>: <span class="literal">true</span>, <span class="attr">msg</span>: <span class="string">''</span>, <span class="attr">DateObj</span>: <span class="literal">null</span> &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (<span class="keyword">typeof</span> val === <span class="string">'undefined'</span>) &#123;</span><br><span class="line">    result.result = <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">//只接受數字與字串型態</span></span><br><span class="line">  <span class="keyword">if</span> (<span class="keyword">typeof</span> val !== <span class="string">'number'</span> &amp;&amp; <span class="keyword">typeof</span> val !== <span class="string">'string'</span>) &#123;</span><br><span class="line">    result.result = <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">//檢查格式字串</span></span><br><span class="line">  <span class="keyword">if</span> (</span><br><span class="line">    format !== <span class="string">'yyyMMdd'</span> &amp;&amp;</span><br><span class="line">    format !== <span class="string">'yyyMMddHHmm'</span> &amp;&amp;</span><br><span class="line">    format !== <span class="string">'yyyMMddHHmmss'</span></span><br><span class="line">  ) &#123;</span><br><span class="line">    result.result = <span class="literal">false</span>;</span><br><span class="line">    result.msg = <span class="string">'不支援的日期格式設定'</span>;</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">//只接受數字不接受符號</span></span><br><span class="line">  <span class="keyword">if</span> (<span class="regexp">/^\d+$/</span>.test(val) === <span class="literal">false</span>) &#123;</span><br><span class="line">    result.result = <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">var</span> str = <span class="string">''</span>;</span><br><span class="line"></span><br><span class="line">  <span class="comment">//數字型態轉文字</span></span><br><span class="line">  <span class="keyword">if</span> (<span class="keyword">typeof</span> val === <span class="string">'number'</span>) &#123;</span><br><span class="line">    str = val.toString();</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    str = val;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">//從後往前兩位兩位取出字串，轉數字後做驗證</span></span><br><span class="line">  <span class="keyword">var</span> sec = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">var</span> min = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">var</span> hr = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">var</span> day = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">var</span> mon = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">var</span> year = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">var</span> movingCount = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">if</span> (format === <span class="string">'yyyMMddHHmmss'</span>) &#123;</span><br><span class="line">    <span class="keyword">if</span> (str.length &lt; <span class="number">11</span>) &#123;</span><br><span class="line">      result.result = <span class="literal">false</span>;</span><br><span class="line">      <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">    sec = <span class="built_in">parseInt</span>(</span><br><span class="line">      str.substring(str.length - movingCount - <span class="number">2</span>, str.length - movingCount),</span><br><span class="line">      <span class="number">10</span></span><br><span class="line">    );</span><br><span class="line">    <span class="keyword">if</span> (sec === <span class="literal">NaN</span> || sec &gt; <span class="number">59</span> || sec &lt; <span class="number">0</span>) &#123;</span><br><span class="line">      result.result = <span class="literal">false</span>;</span><br><span class="line">      <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">    movingCount += <span class="number">2</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">if</span> (format === <span class="string">'yyyMMddHHmm'</span> || format === <span class="string">'yyyMMddHHmmss'</span>) &#123;</span><br><span class="line">    <span class="keyword">if</span> (str.length &lt; <span class="number">9</span>) &#123;</span><br><span class="line">      result.result = <span class="literal">false</span>;</span><br><span class="line">      <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">    min = <span class="built_in">parseInt</span>(</span><br><span class="line">      str.substring(str.length - movingCount - <span class="number">2</span>, str.length - movingCount),</span><br><span class="line">      <span class="number">10</span></span><br><span class="line">    );</span><br><span class="line">    <span class="keyword">if</span> (min === <span class="literal">NaN</span> || min &gt; <span class="number">59</span> || min &lt; <span class="number">0</span>) &#123;</span><br><span class="line">      result.result = <span class="literal">false</span>;</span><br><span class="line">      <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">    movingCount += <span class="number">2</span>;</span><br><span class="line"></span><br><span class="line">    hr = <span class="built_in">parseInt</span>(</span><br><span class="line">      str.substring(str.length - movingCount - <span class="number">2</span>, str.length - movingCount),</span><br><span class="line">      <span class="number">10</span></span><br><span class="line">    );</span><br><span class="line">    <span class="keyword">if</span> (hr === <span class="literal">NaN</span> || hr &gt; <span class="number">23</span> || hr &lt; <span class="number">0</span>) &#123;</span><br><span class="line">      result.result = <span class="literal">false</span>;</span><br><span class="line">      <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">    movingCount += <span class="number">2</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">if</span> (str.length &lt; <span class="number">5</span>) &#123;</span><br><span class="line">    result.result = <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">  &#125;</span><br><span class="line">  day = <span class="built_in">parseInt</span>(</span><br><span class="line">    str.substring(str.length - movingCount - <span class="number">2</span>, str.length - movingCount),</span><br><span class="line">    <span class="number">10</span></span><br><span class="line">  );</span><br><span class="line">  <span class="keyword">if</span> (day === <span class="literal">NaN</span> || day &gt; <span class="number">31</span> || day &lt; <span class="number">1</span>) &#123;</span><br><span class="line">    result.result = <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">  &#125;</span><br><span class="line">  movingCount += <span class="number">2</span>;</span><br><span class="line"></span><br><span class="line">  mon = <span class="built_in">parseInt</span>(</span><br><span class="line">    str.substring(str.length - movingCount - <span class="number">2</span>, str.length - movingCount),</span><br><span class="line">    <span class="number">10</span></span><br><span class="line">  );</span><br><span class="line">  <span class="keyword">if</span> (mon === <span class="literal">NaN</span> || mon &gt; <span class="number">12</span> || mon &lt; <span class="number">1</span>) &#123;</span><br><span class="line">    result.result = <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">  &#125;</span><br><span class="line">  movingCount += <span class="number">2</span>;</span><br><span class="line"></span><br><span class="line">  year = <span class="built_in">parseInt</span>(str.substring(<span class="number">0</span>, str.length - movingCount), <span class="number">10</span>);</span><br><span class="line">  <span class="keyword">if</span> (year === <span class="literal">NaN</span> || year &lt; <span class="number">1</span>) &#123;</span><br><span class="line">    result.result = <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">//JS的日期的月份是0 base</span></span><br><span class="line">  result.DateObj = <span class="keyword">new</span> <span class="built_in">Date</span>(year + <span class="number">1911</span>, mon - <span class="number">1</span>, day, hr, min, sec);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//將日期選擇轉成民國年</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getTWDate</span>(<span class="params">val, format</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> rawYear = val.getFullYear();</span><br><span class="line">  <span class="keyword">var</span> twYear = rawYear - <span class="number">1911</span>;</span><br><span class="line">  <span class="keyword">var</span> rawMonth = val.getMonth() + <span class="number">1</span>;</span><br><span class="line">  <span class="keyword">var</span> twMonth = rawMonth.toString().padStart(<span class="number">2</span>, <span class="string">'0'</span>);</span><br><span class="line">  <span class="keyword">var</span> rawDay = val.getDate();</span><br><span class="line">  <span class="keyword">var</span> twDay = rawDay.toString().padStart(<span class="number">2</span>, <span class="string">'0'</span>);</span><br><span class="line">  <span class="keyword">var</span> strTWDate = twYear + twMonth + twDay;</span><br><span class="line">  <span class="keyword">if</span> (format === <span class="string">'yyyMMddHHmm'</span> || format === <span class="string">'yyyMMddHHmmss'</span>) &#123;</span><br><span class="line">    <span class="keyword">var</span> hr = val.getHours().toString().padStart(<span class="number">2</span>, <span class="string">'0'</span>);</span><br><span class="line">    <span class="keyword">var</span> min = val.getMinutes().toString().padStart(<span class="number">2</span>, <span class="string">'0'</span>);</span><br><span class="line">    strTWDate = strTWDate + hr + min;</span><br><span class="line">    <span class="keyword">if</span> (format === <span class="string">'yyyMMddHHmmss'</span>) &#123;</span><br><span class="line">      <span class="keyword">var</span> sec = val.getSeconds().toString().padStart(<span class="number">2</span>, <span class="string">'0'</span>);</span><br><span class="line">      strTWDate = strTWDate + sec;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> strTWDate;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//傳入值與格式，分析與轉換成JS日期物件</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">parseTWDate</span>(<span class="params">val, format</span>) &#123;</span><br><span class="line">  <span class="keyword">var</span> result = &#123; <span class="attr">result</span>: <span class="literal">true</span>, <span class="attr">msg</span>: <span class="string">&#x27;&#x27;</span>, <span class="title class_">DateObj</span>: <span class="literal">null</span> &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (<span class="keyword">typeof</span> val === <span class="string">&#x27;undefined&#x27;</span>) &#123;</span><br><span class="line">    result.<span class="property">result</span> = <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">//只接受數字與字串型態</span></span><br><span class="line">  <span class="keyword">if</span> (<span class="keyword">typeof</span> val !== <span class="string">&#x27;number&#x27;</span> &amp;&amp; <span class="keyword">typeof</span> val !== <span class="string">&#x27;string&#x27;</span>) &#123;</span><br><span class="line">    result.<span class="property">result</span> = <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">//檢查格式字串</span></span><br><span class="line">  <span class="keyword">if</span> (</span><br><span class="line">    format !== <span class="string">&#x27;yyyMMdd&#x27;</span> &amp;&amp;</span><br><span class="line">    format !== <span class="string">&#x27;yyyMMddHHmm&#x27;</span> &amp;&amp;</span><br><span class="line">    format !== <span class="string">&#x27;yyyMMddHHmmss&#x27;</span></span><br><span class="line">  ) &#123;</span><br><span class="line">    result.<span class="property">result</span> = <span class="literal">false</span>;</span><br><span class="line">    result.<span class="property">msg</span> = <span class="string">&#x27;不支援的日期格式設定&#x27;</span>;</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">//只接受數字不接受符號</span></span><br><span class="line">  <span class="keyword">if</span> (<span class="regexp">/^\d+$/</span>.<span class="title function_">test</span>(val) === <span class="literal">false</span>) &#123;</span><br><span class="line">    result.<span class="property">result</span> = <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">var</span> str = <span class="string">&#x27;&#x27;</span>;</span><br><span class="line"></span><br><span class="line">  <span class="comment">//數字型態轉文字</span></span><br><span class="line">  <span class="keyword">if</span> (<span class="keyword">typeof</span> val === <span class="string">&#x27;number&#x27;</span>) &#123;</span><br><span class="line">    str = val.<span class="title function_">toString</span>();</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    str = val;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">//從後往前兩位兩位取出字串，轉數字後做驗證</span></span><br><span class="line">  <span class="keyword">var</span> sec = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">var</span> min = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">var</span> hr = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">var</span> day = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">var</span> mon = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">var</span> year = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">var</span> movingCount = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">if</span> (format === <span class="string">&#x27;yyyMMddHHmmss&#x27;</span>) &#123;</span><br><span class="line">    <span class="keyword">if</span> (str.<span class="property">length</span> &lt; <span class="number">11</span>) &#123;</span><br><span class="line">      result.<span class="property">result</span> = <span class="literal">false</span>;</span><br><span class="line">      <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">    sec = <span class="built_in">parseInt</span>(</span><br><span class="line">      str.<span class="title function_">substring</span>(str.<span class="property">length</span> - movingCount - <span class="number">2</span>, str.<span class="property">length</span> - movingCount),</span><br><span class="line">      <span class="number">10</span></span><br><span class="line">    );</span><br><span class="line">    <span class="keyword">if</span> (sec === <span class="title class_">NaN</span> || sec &gt; <span class="number">59</span> || sec &lt; <span class="number">0</span>) &#123;</span><br><span class="line">      result.<span class="property">result</span> = <span class="literal">false</span>;</span><br><span class="line">      <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">    movingCount += <span class="number">2</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">if</span> (format === <span class="string">&#x27;yyyMMddHHmm&#x27;</span> || format === <span class="string">&#x27;yyyMMddHHmmss&#x27;</span>) &#123;</span><br><span class="line">    <span class="keyword">if</span> (str.<span class="property">length</span> &lt; <span class="number">9</span>) &#123;</span><br><span class="line">      result.<span class="property">result</span> = <span class="literal">false</span>;</span><br><span class="line">      <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">    min = <span class="built_in">parseInt</span>(</span><br><span class="line">      str.<span class="title function_">substring</span>(str.<span class="property">length</span> - movingCount - <span class="number">2</span>, str.<span class="property">length</span> - movingCount),</span><br><span class="line">      <span class="number">10</span></span><br><span class="line">    );</span><br><span class="line">    <span class="keyword">if</span> (min === <span class="title class_">NaN</span> || min &gt; <span class="number">59</span> || min &lt; <span class="number">0</span>) &#123;</span><br><span class="line">      result.<span class="property">result</span> = <span class="literal">false</span>;</span><br><span class="line">      <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">    movingCount += <span class="number">2</span>;</span><br><span class="line"></span><br><span class="line">    hr = <span class="built_in">parseInt</span>(</span><br><span class="line">      str.<span class="title function_">substring</span>(str.<span class="property">length</span> - movingCount - <span class="number">2</span>, str.<span class="property">length</span> - movingCount),</span><br><span class="line">      <span class="number">10</span></span><br><span class="line">    );</span><br><span class="line">    <span class="keyword">if</span> (hr === <span class="title class_">NaN</span> || hr &gt; <span class="number">23</span> || hr &lt; <span class="number">0</span>) &#123;</span><br><span class="line">      result.<span class="property">result</span> = <span class="literal">false</span>;</span><br><span class="line">      <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">    movingCount += <span class="number">2</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">if</span> (str.<span class="property">length</span> &lt; <span class="number">5</span>) &#123;</span><br><span class="line">    result.<span class="property">result</span> = <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">  &#125;</span><br><span class="line">  day = <span class="built_in">parseInt</span>(</span><br><span class="line">    str.<span class="title function_">substring</span>(str.<span class="property">length</span> - movingCount - <span class="number">2</span>, str.<span class="property">length</span> - movingCount),</span><br><span class="line">    <span class="number">10</span></span><br><span class="line">  );</span><br><span class="line">  <span class="keyword">if</span> (day === <span class="title class_">NaN</span> || day &gt; <span class="number">31</span> || day &lt; <span class="number">1</span>) &#123;</span><br><span class="line">    result.<span class="property">result</span> = <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">  &#125;</span><br><span class="line">  movingCount += <span class="number">2</span>;</span><br><span class="line"></span><br><span class="line">  mon = <span class="built_in">parseInt</span>(</span><br><span class="line">    str.<span class="title function_">substring</span>(str.<span class="property">length</span> - movingCount - <span class="number">2</span>, str.<span class="property">length</span> - movingCount),</span><br><span class="line">    <span class="number">10</span></span><br><span class="line">  );</span><br><span class="line">  <span class="keyword">if</span> (mon === <span class="title class_">NaN</span> || mon &gt; <span class="number">12</span> || mon &lt; <span class="number">1</span>) &#123;</span><br><span class="line">    result.<span class="property">result</span> = <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">  &#125;</span><br><span class="line">  movingCount += <span class="number">2</span>;</span><br><span class="line"></span><br><span class="line">  year = <span class="built_in">parseInt</span>(str.<span class="title function_">substring</span>(<span class="number">0</span>, str.<span class="property">length</span> - movingCount), <span class="number">10</span>);</span><br><span class="line">  <span class="keyword">if</span> (year === <span class="title class_">NaN</span> || year &lt; <span class="number">1</span>) &#123;</span><br><span class="line">    result.<span class="property">result</span> = <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">//JS的日期的月份是0 base</span></span><br><span class="line">  result.<span class="property">DateObj</span> = <span class="keyword">new</span> <span class="title class_">Date</span>(year + <span class="number">1911</span>, mon - <span class="number">1</span>, day, hr, min, sec);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//將日期選擇轉成民國年</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">getTWDate</span>(<span class="params">val, format</span>) &#123;</span><br><span class="line">  <span class="keyword">var</span> rawYear = val.<span class="title function_">getFullYear</span>();</span><br><span class="line">  <span class="keyword">var</span> twYear = rawYear - <span class="number">1911</span>;</span><br><span class="line">  <span class="keyword">var</span> rawMonth = val.<span class="title function_">getMonth</span>() + <span class="number">1</span>;</span><br><span class="line">  <span class="keyword">var</span> twMonth = rawMonth.<span class="title function_">toString</span>().<span class="title function_">padStart</span>(<span class="number">2</span>, <span class="string">&#x27;0&#x27;</span>);</span><br><span class="line">  <span class="keyword">var</span> rawDay = val.<span class="title function_">getDate</span>();</span><br><span class="line">  <span class="keyword">var</span> twDay = rawDay.<span class="title function_">toString</span>().<span class="title function_">padStart</span>(<span class="number">2</span>, <span class="string">&#x27;0&#x27;</span>);</span><br><span class="line">  <span class="keyword">var</span> strTWDate = twYear + twMonth + twDay;</span><br><span class="line">  <span class="keyword">if</span> (format === <span class="string">&#x27;yyyMMddHHmm&#x27;</span> || format === <span class="string">&#x27;yyyMMddHHmmss&#x27;</span>) &#123;</span><br><span class="line">    <span class="keyword">var</span> hr = val.<span class="title function_">getHours</span>().<span class="title function_">toString</span>().<span class="title function_">padStart</span>(<span class="number">2</span>, <span class="string">&#x27;0&#x27;</span>);</span><br><span class="line">    <span class="keyword">var</span> min = val.<span class="title function_">getMinutes</span>().<span class="title function_">toString</span>().<span class="title function_">padStart</span>(<span class="number">2</span>, <span class="string">&#x27;0&#x27;</span>);</span><br><span class="line">    strTWDate = strTWDate + hr + min;</span><br><span class="line">    <span class="keyword">if</span> (format === <span class="string">&#x27;yyyMMddHHmmss&#x27;</span>) &#123;</span><br><span class="line">      <span class="keyword">var</span> sec = val.<span class="title function_">getSeconds</span>().<span class="title function_">toString</span>().<span class="title function_">padStart</span>(<span class="number">2</span>, <span class="string">&#x27;0&#x27;</span>);</span><br><span class="line">      strTWDate = strTWDate + sec;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> strTWDate;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>然後在原本的 datasource 的 schema 中加入一個自訂的民國年欄位，類型是字串<br>這個欄位不會回傳值給 API，只是用來 data bind，<br>裡面做自定義驗證方法，在民國年字串輸入框跳開時，去跑日期解析，<br>成功就把日期物件帶回 model，失敗就給予錯誤訊息並回傳 false；<br>原本的欄位也給他一個驗證是如果跑到了驗證就檢查他的值是否可以解析成日期，<br>這裡弄了很久是不知如何避免偶爾會出現原欄位跳出必填的問題，<br>還有編輯時無法透過 model.set 讓他自己 data bind 去改變前端 DOM 的值，<br>set 下去 model 的值竟然不會改，只能手動去塞值&amp;改 DOM，<br>改值的時候也要先改 DOM 在做 SET，不然也會有怪現象</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> dataSource = &#123;</span><br><span class="line">  schema: &#123;</span><br><span class="line">    model: &#123;</span><br><span class="line">      fields: &#123;</span><br><span class="line">        myDate: &#123;</span><br><span class="line">          type: <span class="string">'date'</span>,</span><br><span class="line">          validation: &#123;</span><br><span class="line">            required: <span class="literal">true</span>,</span><br><span class="line">            dateFormat: <span class="function"><span class="keyword">function</span> (<span class="params">input, option</span>) </span>&#123;</span><br><span class="line">              <span class="keyword">if</span> (input.is(<span class="string">"[name='myDate']"</span>)) &#123;</span><br><span class="line">                <span class="keyword">if</span> (<span class="built_in">Date</span>.parse(input.val()) !== <span class="literal">NaN</span>) &#123;</span><br><span class="line">                  $(<span class="string">'#myDateTW'</span>).removeAttr(<span class="string">'data-TWdate-msg'</span>);</span><br><span class="line">                  $(<span class="string">'#myDate'</span>).removeAttr(<span class="string">'data-required-msg'</span>);</span><br><span class="line">                  <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                  $(<span class="string">'#myDateTW'</span>).attr(<span class="string">'data-TWdate-msg'</span>, <span class="string">'格式民國年yyyMMdd'</span>);</span><br><span class="line">                  <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">                &#125;</span><br><span class="line">              &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">              &#125;</span><br><span class="line">            &#125;,</span><br><span class="line">          &#125;,</span><br><span class="line">        &#125;,</span><br><span class="line">        myDateTW: &#123;</span><br><span class="line">          type: <span class="string">'string'</span>,</span><br><span class="line">          validation: &#123;</span><br><span class="line">            required: <span class="literal">true</span>,</span><br><span class="line">            TWdate: <span class="function"><span class="keyword">function</span> (<span class="params">input, option</span>) </span>&#123;</span><br><span class="line">              <span class="keyword">if</span> (input.is(<span class="string">"[name='myDateTW']"</span>)) &#123;</span><br><span class="line">                <span class="keyword">var</span> val = input.val();</span><br><span class="line">                <span class="keyword">var</span> format = <span class="string">'yyyMMdd'</span>;</span><br><span class="line">                <span class="keyword">var</span> result = parseTWDate(val, format);</span><br><span class="line">                <span class="keyword">if</span> (result.result) &#123;</span><br><span class="line">                  input.removeAttr(<span class="string">'data-TWdate-msg'</span>);</span><br><span class="line">                  <span class="comment">//帶回model</span></span><br><span class="line">                  <span class="keyword">var</span> source = $(<span class="string">'#myDateTW'</span>)[<span class="number">0</span>].kendoBindingTarget.source;</span><br><span class="line">                  $(<span class="string">'#myDate'</span>).val(result.DateObj);</span><br><span class="line">                  source.set(<span class="string">'myDate'</span>, result.DateObj);</span><br><span class="line">                  <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                  input.attr(<span class="string">'data-TWdate-msg'</span>, <span class="string">'格式民國年'</span> + format);</span><br><span class="line">                  <span class="comment">//帶回model</span></span><br><span class="line">                  <span class="keyword">var</span> source = $(<span class="string">'#myDateTW'</span>)[<span class="number">0</span>].kendoBindingTarget.source;</span><br><span class="line">                  $(<span class="string">'#myDate'</span>).val(val);</span><br><span class="line">                  source.set(<span class="string">'myDate'</span>, val);</span><br><span class="line">                  <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">                &#125;</span><br><span class="line">              &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">              &#125;</span><br><span class="line">            &#125;,</span><br><span class="line">          &#125;,</span><br><span class="line">        &#125;,</span><br><span class="line">      &#125;,</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> dataSource = &#123;</span><br><span class="line">  <span class="attr">schema</span>: &#123;</span><br><span class="line">    <span class="attr">model</span>: &#123;</span><br><span class="line">      <span class="attr">fields</span>: &#123;</span><br><span class="line">        <span class="attr">myDate</span>: &#123;</span><br><span class="line">          <span class="attr">type</span>: <span class="string">&#x27;date&#x27;</span>,</span><br><span class="line">          <span class="attr">validation</span>: &#123;</span><br><span class="line">            <span class="attr">required</span>: <span class="literal">true</span>,</span><br><span class="line">            <span class="attr">dateFormat</span>: <span class="keyword">function</span> (<span class="params">input, option</span>) &#123;</span><br><span class="line">              <span class="keyword">if</span> (input.<span class="title function_">is</span>(<span class="string">&quot;[name=&#x27;myDate&#x27;]&quot;</span>)) &#123;</span><br><span class="line">                <span class="keyword">if</span> (<span class="title class_">Date</span>.<span class="title function_">parse</span>(input.<span class="title function_">val</span>()) !== <span class="title class_">NaN</span>) &#123;</span><br><span class="line">                  $(<span class="string">&#x27;#myDateTW&#x27;</span>).<span class="title function_">removeAttr</span>(<span class="string">&#x27;data-TWdate-msg&#x27;</span>);</span><br><span class="line">                  $(<span class="string">&#x27;#myDate&#x27;</span>).<span class="title function_">removeAttr</span>(<span class="string">&#x27;data-required-msg&#x27;</span>);</span><br><span class="line">                  <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                  $(<span class="string">&#x27;#myDateTW&#x27;</span>).<span class="title function_">attr</span>(<span class="string">&#x27;data-TWdate-msg&#x27;</span>, <span class="string">&#x27;格式民國年yyyMMdd&#x27;</span>);</span><br><span class="line">                  <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">                &#125;</span><br><span class="line">              &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">              &#125;</span><br><span class="line">            &#125;,</span><br><span class="line">          &#125;,</span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="attr">myDateTW</span>: &#123;</span><br><span class="line">          <span class="attr">type</span>: <span class="string">&#x27;string&#x27;</span>,</span><br><span class="line">          <span class="attr">validation</span>: &#123;</span><br><span class="line">            <span class="attr">required</span>: <span class="literal">true</span>,</span><br><span class="line">            <span class="title class_">TWdate</span>: <span class="keyword">function</span> (<span class="params">input, option</span>) &#123;</span><br><span class="line">              <span class="keyword">if</span> (input.<span class="title function_">is</span>(<span class="string">&quot;[name=&#x27;myDateTW&#x27;]&quot;</span>)) &#123;</span><br><span class="line">                <span class="keyword">var</span> val = input.<span class="title function_">val</span>();</span><br><span class="line">                <span class="keyword">var</span> format = <span class="string">&#x27;yyyMMdd&#x27;</span>;</span><br><span class="line">                <span class="keyword">var</span> result = <span class="title function_">parseTWDate</span>(val, format);</span><br><span class="line">                <span class="keyword">if</span> (result.<span class="property">result</span>) &#123;</span><br><span class="line">                  input.<span class="title function_">removeAttr</span>(<span class="string">&#x27;data-TWdate-msg&#x27;</span>);</span><br><span class="line">                  <span class="comment">//帶回model</span></span><br><span class="line">                  <span class="keyword">var</span> source = $(<span class="string">&#x27;#myDateTW&#x27;</span>)[<span class="number">0</span>].<span class="property">kendoBindingTarget</span>.<span class="property">source</span>;</span><br><span class="line">                  $(<span class="string">&#x27;#myDate&#x27;</span>).<span class="title function_">val</span>(result.<span class="property">DateObj</span>);</span><br><span class="line">                  source.<span class="title function_">set</span>(<span class="string">&#x27;myDate&#x27;</span>, result.<span class="property">DateObj</span>);</span><br><span class="line">                  <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                  input.<span class="title function_">attr</span>(<span class="string">&#x27;data-TWdate-msg&#x27;</span>, <span class="string">&#x27;格式民國年&#x27;</span> + format);</span><br><span class="line">                  <span class="comment">//帶回model</span></span><br><span class="line">                  <span class="keyword">var</span> source = $(<span class="string">&#x27;#myDateTW&#x27;</span>)[<span class="number">0</span>].<span class="property">kendoBindingTarget</span>.<span class="property">source</span>;</span><br><span class="line">                  $(<span class="string">&#x27;#myDate&#x27;</span>).<span class="title function_">val</span>(val);</span><br><span class="line">                  source.<span class="title function_">set</span>(<span class="string">&#x27;myDate&#x27;</span>, val);</span><br><span class="line">                  <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">                &#125;</span><br><span class="line">              &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">              &#125;</span><br><span class="line">            &#125;,</span><br><span class="line">          &#125;,</span><br><span class="line">        &#125;,</span><br><span class="line">      &#125;,</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
 <p>再來是 grid 新增或編輯時需要把 model 的 date 欄位清空與轉換</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">edit: <span class="function"><span class="keyword">function</span>(<span class="params">e</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> arg = e;</span><br><span class="line">    <span class="keyword">if</span> (e.model.isNew()) &#123;</span><br><span class="line">      <span class="comment">//日期型態先清空</span></span><br><span class="line">      e.model.set(<span class="string">"myDate"</span>, <span class="literal">null</span>);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="comment">//民國年要先轉好</span></span><br><span class="line">      <span class="keyword">var</span> myDate = e.model.get(<span class="string">"ㄗㄩDate"</span>);</span><br><span class="line">      <span class="keyword">var</span> strMyDateTW = getTWDate(myDate, <span class="string">"yyyMMdd"</span>);</span><br><span class="line">      e.model.myDateTW = strMyDateTW;</span><br><span class="line">      e.model.set(<span class="string">"myDateTW"</span>, strMyDateTW);</span><br><span class="line">      $(<span class="string">"#myDateTW"</span>).val(strMyDateTW);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">edit</span>: <span class="keyword">function</span>(<span class="params">e</span>) &#123;</span><br><span class="line">    <span class="keyword">var</span> arg = e;</span><br><span class="line">    <span class="keyword">if</span> (e.<span class="property">model</span>.<span class="title function_">isNew</span>()) &#123;</span><br><span class="line">      <span class="comment">//日期型態先清空</span></span><br><span class="line">      e.<span class="property">model</span>.<span class="title function_">set</span>(<span class="string">&quot;myDate&quot;</span>, <span class="literal">null</span>);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="comment">//民國年要先轉好</span></span><br><span class="line">      <span class="keyword">var</span> myDate = e.<span class="property">model</span>.<span class="title function_">get</span>(<span class="string">&quot;ㄗㄩDate&quot;</span>);</span><br><span class="line">      <span class="keyword">var</span> strMyDateTW = <span class="title function_">getTWDate</span>(myDate, <span class="string">&quot;yyyMMdd&quot;</span>);</span><br><span class="line">      e.<span class="property">model</span>.<span class="property">myDateTW</span> = strMyDateTW;</span><br><span class="line">      e.<span class="property">model</span>.<span class="title function_">set</span>(<span class="string">&quot;myDateTW&quot;</span>, strMyDateTW);</span><br><span class="line">      $(<span class="string">&quot;#myDateTW&quot;</span>).<span class="title function_">val</span>(strMyDateTW);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
 
 <p>這樣就可以輸入民國年日期轉成西元年日期，編輯時也可以把西元年日期轉回民國年日期了</p>
 
-  </div>
-</article>
+    </div>
 
+    
+    
+    
 
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/DateTimePicker/" rel="tag"># DateTimePicker</a>
+              <a href="/tags/javascript/" rel="tag"># javascript</a>
+              <a href="/tags/Kendo-UI/" rel="tag"># Kendo UI</a>
+              <a href="/tags/Kendo-UI-Grid/" rel="tag"># Kendo UI-Grid</a>
+              <a href="/tags/Kendo-UI-DataSource/" rel="tag"># Kendo UI-DataSource</a>
+              <a href="/tags/DatePicker/" rel="tag"># DatePicker</a>
+              <a href="/tags/Kendo-UI-DateTimePicker/" rel="tag"># Kendo UI-DateTimePicker</a>
+              <a href="/tags/Kendo-UI-Validation/" rel="tag"># Kendo UI-Validation</a>
+              <a href="/tags/%E6%B0%91%E5%9C%8B%E5%B9%B4/" rel="tag"># 民國年</a>
+          </div>
 
         
-          <div id="footer-post-container">
-  <div id="footer-post">
 
-    <div id="nav-footer" style="display: none">
-      <ul>
-         
-          <li><a href="/">Home</a></li>
-         
-          <li><a href="/about/">About</a></li>
-         
-          <li><a href="/archives/">Writing</a></li>
-         
-          <li><a href="/projects_url">Projects</a></li>
-        
-      </ul>
-    </div>
-
-    <div id="toc-footer" style="display: none">
-      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#背景"><span class="toc-number">1.</span> <span class="toc-text">背景</span></a></li></ol>
-    </div>
-
-    <div id="share-footer" style="display: none">
-      <ul>
-  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://ian90911.github.io/2018/02/14/Kendo-UI-Date-Picker-%E6%B0%91%E5%9C%8B%E5%B9%B4%E6%A0%BC%E5%BC%8F-Kendo-UI-Date-Picker-Taiwan-calander-format/" target="_blank" rel="noopener"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://twitter.com/share?url=https://ian90911.github.io/2018/02/14/Kendo-UI-Date-Picker-%E6%B0%91%E5%9C%8B%E5%B9%B4%E6%A0%BC%E5%BC%8F-Kendo-UI-Date-Picker-Taiwan-calander-format/&text=Kendo UI Date Picker 民國年格式 |  Kendo UI Date Picker Taiwan calander format" target="_blank" rel="noopener"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://ian90911.github.io/2018/02/14/Kendo-UI-Date-Picker-%E6%B0%91%E5%9C%8B%E5%B9%B4%E6%A0%BC%E5%BC%8F-Kendo-UI-Date-Picker-Taiwan-calander-format/&title=Kendo UI Date Picker 民國年格式 |  Kendo UI Date Picker Taiwan calander format" target="_blank" rel="noopener"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://ian90911.github.io/2018/02/14/Kendo-UI-Date-Picker-%E6%B0%91%E5%9C%8B%E5%B9%B4%E6%A0%BC%E5%BC%8F-Kendo-UI-Date-Picker-Taiwan-calander-format/&is_video=false&description=Kendo UI Date Picker 民國年格式 |  Kendo UI Date Picker Taiwan calander format" target="_blank" rel="noopener"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=Kendo UI Date Picker 民國年格式 |  Kendo UI Date Picker Taiwan calander format&body=Check out this article: https://ian90911.github.io/2018/02/14/Kendo-UI-Date-Picker-%E6%B0%91%E5%9C%8B%E5%B9%B4%E6%A0%BC%E5%BC%8F-Kendo-UI-Date-Picker-Taiwan-calander-format/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://getpocket.com/save?url=https://ian90911.github.io/2018/02/14/Kendo-UI-Date-Picker-%E6%B0%91%E5%9C%8B%E5%B9%B4%E6%A0%BC%E5%BC%8F-Kendo-UI-Date-Picker-Taiwan-calander-format/&title=Kendo UI Date Picker 民國年格式 |  Kendo UI Date Picker Taiwan calander format" target="_blank" rel="noopener"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://reddit.com/submit?url=https://ian90911.github.io/2018/02/14/Kendo-UI-Date-Picker-%E6%B0%91%E5%9C%8B%E5%B9%B4%E6%A0%BC%E5%BC%8F-Kendo-UI-Date-Picker-Taiwan-calander-format/&title=Kendo UI Date Picker 民國年格式 |  Kendo UI Date Picker Taiwan calander format" target="_blank" rel="noopener"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://ian90911.github.io/2018/02/14/Kendo-UI-Date-Picker-%E6%B0%91%E5%9C%8B%E5%B9%B4%E6%A0%BC%E5%BC%8F-Kendo-UI-Date-Picker-Taiwan-calander-format/&title=Kendo UI Date Picker 民國年格式 |  Kendo UI Date Picker Taiwan calander format" target="_blank" rel="noopener"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://digg.com/submit?url=https://ian90911.github.io/2018/02/14/Kendo-UI-Date-Picker-%E6%B0%91%E5%9C%8B%E5%B9%B4%E6%A0%BC%E5%BC%8F-Kendo-UI-Date-Picker-Taiwan-calander-format/&title=Kendo UI Date Picker 民國年格式 |  Kendo UI Date Picker Taiwan calander format" target="_blank" rel="noopener"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://ian90911.github.io/2018/02/14/Kendo-UI-Date-Picker-%E6%B0%91%E5%9C%8B%E5%B9%B4%E6%A0%BC%E5%BC%8F-Kendo-UI-Date-Picker-Taiwan-calander-format/&name=Kendo UI Date Picker 民國年格式 |  Kendo UI Date Picker Taiwan calander format&description=" target="_blank" rel="noopener"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://news.ycombinator.com/submitlink?u=https://ian90911.github.io/2018/02/14/Kendo-UI-Date-Picker-%E6%B0%91%E5%9C%8B%E5%B9%B4%E6%A0%BC%E5%BC%8F-Kendo-UI-Date-Picker-Taiwan-calander-format/&t=Kendo UI Date Picker 民國年格式 |  Kendo UI Date Picker Taiwan calander format" target="_blank" rel="noopener"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
-</ul>
-
-    </div>
-
-    <div id="actions-footer">
-        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
-        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
-        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
-        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
-    </div>
-
-  </div>
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2018/02/05/LUIS%E8%A8%93%E7%B7%B4%E7%AD%86%E8%A8%98/" rel="prev" title="LUIS訓練筆記">
+                  <i class="fa fa-angle-left"></i> LUIS訓練筆記
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2018/03/02/%E5%BE%AE%E8%BB%9F%E6%AD%A3%E9%BB%91%E9%AB%94font-weight%E7%9C%8B%E4%B8%8D%E5%87%BA%E7%B2%97%E7%B4%B0%E5%95%8F%E9%A1%8C/" rel="next" title="微軟正黑體font-weight看不出粗細問題">
+                  微軟正黑體font-weight看不出粗細問題 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
 </div>
 
-        
-        <footer id="footer">
-  <div class="footer-left">
-    Copyright &copy;
-    
-    
-    2016-2020
-    阿燁
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2023</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">阿燁</span>
   </div>
-  <div class="footer-right">
-    <nav>
-      <ul>
-         
-          <li><a href="/">Home</a></li>
-         
-          <li><a href="/about/">About</a></li>
-         
-          <li><a href="/archives/">Writing</a></li>
-         
-          <li><a href="/projects_url">Projects</a></li>
-        
-      </ul>
-    </nav>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a>
   </div>
-</footer>
 
     </div>
-    <!-- styles -->
-
-<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
-
-
-<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
-
-
-    <!-- jquery -->
-
-<script src="/lib/jquery/jquery.min.js"></script>
-
-
-<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
-
-<!-- clipboard -->
+  </footer>
 
   
-<script src="/lib/clipboard/clipboard.min.js"></script>
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
 
-  <script type="text/javascript">
-  $(function() {
-    // copy-btn HTML
-    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
-    btn += '<i class="far fa-clone"></i>';
-    btn += '</span>'; 
-    // mount it!
-    $(".highlight table").before(btn);
-    var clip = new ClipboardJS('.btn-copy', {
-      text: function(trigger) {
-        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
-      }
-    });
-    clip.on('success', function(e) {
-      e.trigger.setAttribute('aria-label', "Copied!");
-      e.clearSelection();
-    })
-  })
-  </script>
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
 
 
-<script src="/js/main.js"></script>
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
 
-<!-- search -->
+  
 
-<!-- Google Analytics -->
 
-<!-- Baidu Analytics -->
 
-<!-- Disqus Comments -->
+
+
+
+  
+
+
+
 
 
 </body>

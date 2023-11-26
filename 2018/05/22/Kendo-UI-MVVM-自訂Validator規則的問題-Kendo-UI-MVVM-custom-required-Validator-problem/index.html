@@ -1,13 +1,27 @@
 <!DOCTYPE html>
-<html lang=en>
+<html lang="en">
 <head>
-    <!-- so meta -->
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="HandheldFriendly" content="True">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 7.0.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha256-CTSx/A06dm1B063156EVh15m6Y67pAjZZaQc89LLSrU=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"ian90911.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.18.2","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12},"copycode":{"enable":true,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
+
     <meta name="description" content="情境一個 Grid，裡面的 row 是 template，按鈕除了編輯刪除，其他按鈕案出來的視窗也是 template，在 template 裡面還有套 template，然後都是 MVVM 去設定事件，在最尾端的一個表單，要做表單驗證，有一個欄位是 radio button，多選一，當選到某值時另一文字輸入框欄位就變必填 問題如何在 MVVM 的 model 中套用這個特定的 required">
-<meta property="og:type" content="article">
+<meta property="og:type" content="blog">
 <meta property="og:title" content="Kendo UI MVVM 自訂Validator規則的問題 | Kendo UI MVVM custom required Validator problem">
 <meta property="og:url" content="https://ian90911.github.io/2018/05/22/Kendo-UI-MVVM-%E8%87%AA%E8%A8%82Validator%E8%A6%8F%E5%89%87%E7%9A%84%E5%95%8F%E9%A1%8C-Kendo-UI-MVVM-custom-required-Validator-problem/index.html">
 <meta property="og:site_name" content="我的程式開發筆記">
@@ -18,282 +32,288 @@
 <meta property="article:author" content="阿燁">
 <meta property="article:tag" content="javascript">
 <meta property="article:tag" content="Kendo UI">
-<meta property="article:tag" content="JQuery">
 <meta property="article:tag" content="Kendo UI-Validation">
+<meta property="article:tag" content="JQuery">
 <meta property="article:tag" content="MVVM">
 <meta name="twitter:card" content="summary">
-    
-    
-        
-          
-              <link rel="shortcut icon" href="/images/favicon.ico">
-          
-        
-        
-          
-            <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
-          
-        
-        
-          
-            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
-          
-        
-    
-    <!-- title -->
-    <title>Kendo UI MVVM 自訂Validator規則的問題 | Kendo UI MVVM custom required Validator problem</title>
-    <!-- styles -->
-    
-<link rel="stylesheet" href="/css/style.css">
 
-    <!-- persian styles -->
-    
-      
-<link rel="stylesheet" href="/css/rtl.css">
 
-    
-    <!-- rss -->
-    
-    
-<meta name="generator" content="Hexo 4.2.0"></head>
-
-<body class="max-width mx-auto px3 ltr">
-    
-      <div id="header-post">
-  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
-  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
-  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
-  <span id="menu">
-    <span id="nav">
-      <ul>
-         
-          <li><a href="/">Home</a></li>
-         
-          <li><a href="/about/">About</a></li>
-         
-          <li><a href="/archives/">Writing</a></li>
-         
-          <li><a href="/projects_url">Projects</a></li>
-        
-      </ul>
-    </span>
-    <br/>
-    <span id="actions">
-      <ul>
-        
-        <li><a class="icon" href="/2018/07/10/GIT%E5%B8%B8%E7%94%A8%E6%8C%87%E4%BB%A4%E7%AD%86%E8%A8%98/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
-        
-        
-        <li><a class="icon" href="/2018/05/14/%E6%9C%AC%E6%A9%9F%E9%96%8B%E7%99%BC-IIS-Express%E7%9A%84%E8%99%9B%E6%93%AC%E7%9B%AE%E9%8C%84%E5%A4%B1%E6%95%88%E7%9A%84%E5%95%8F%E9%A1%8C-IIS-Express-virtual-directory-setting-not-work/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
-        
-        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
-        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
-      </ul>
-      <span id="i-prev" class="info" style="display:none;">Previous post</span>
-      <span id="i-next" class="info" style="display:none;">Next post</span>
-      <span id="i-top" class="info" style="display:none;">Back to top</span>
-      <span id="i-share" class="info" style="display:none;">Share post</span>
-    </span>
-    <br/>
-    <div id="share" style="display: none">
-      <ul>
-  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://ian90911.github.io/2018/05/22/Kendo-UI-MVVM-%E8%87%AA%E8%A8%82Validator%E8%A6%8F%E5%89%87%E7%9A%84%E5%95%8F%E9%A1%8C-Kendo-UI-MVVM-custom-required-Validator-problem/" target="_blank" rel="noopener"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://twitter.com/share?url=https://ian90911.github.io/2018/05/22/Kendo-UI-MVVM-%E8%87%AA%E8%A8%82Validator%E8%A6%8F%E5%89%87%E7%9A%84%E5%95%8F%E9%A1%8C-Kendo-UI-MVVM-custom-required-Validator-problem/&text=Kendo UI MVVM 自訂Validator規則的問題 | Kendo UI MVVM custom required Validator problem" target="_blank" rel="noopener"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://ian90911.github.io/2018/05/22/Kendo-UI-MVVM-%E8%87%AA%E8%A8%82Validator%E8%A6%8F%E5%89%87%E7%9A%84%E5%95%8F%E9%A1%8C-Kendo-UI-MVVM-custom-required-Validator-problem/&title=Kendo UI MVVM 自訂Validator規則的問題 | Kendo UI MVVM custom required Validator problem" target="_blank" rel="noopener"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://ian90911.github.io/2018/05/22/Kendo-UI-MVVM-%E8%87%AA%E8%A8%82Validator%E8%A6%8F%E5%89%87%E7%9A%84%E5%95%8F%E9%A1%8C-Kendo-UI-MVVM-custom-required-Validator-problem/&is_video=false&description=Kendo UI MVVM 自訂Validator規則的問題 | Kendo UI MVVM custom required Validator problem" target="_blank" rel="noopener"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=Kendo UI MVVM 自訂Validator規則的問題 | Kendo UI MVVM custom required Validator problem&body=Check out this article: https://ian90911.github.io/2018/05/22/Kendo-UI-MVVM-%E8%87%AA%E8%A8%82Validator%E8%A6%8F%E5%89%87%E7%9A%84%E5%95%8F%E9%A1%8C-Kendo-UI-MVVM-custom-required-Validator-problem/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://getpocket.com/save?url=https://ian90911.github.io/2018/05/22/Kendo-UI-MVVM-%E8%87%AA%E8%A8%82Validator%E8%A6%8F%E5%89%87%E7%9A%84%E5%95%8F%E9%A1%8C-Kendo-UI-MVVM-custom-required-Validator-problem/&title=Kendo UI MVVM 自訂Validator規則的問題 | Kendo UI MVVM custom required Validator problem" target="_blank" rel="noopener"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://reddit.com/submit?url=https://ian90911.github.io/2018/05/22/Kendo-UI-MVVM-%E8%87%AA%E8%A8%82Validator%E8%A6%8F%E5%89%87%E7%9A%84%E5%95%8F%E9%A1%8C-Kendo-UI-MVVM-custom-required-Validator-problem/&title=Kendo UI MVVM 自訂Validator規則的問題 | Kendo UI MVVM custom required Validator problem" target="_blank" rel="noopener"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://ian90911.github.io/2018/05/22/Kendo-UI-MVVM-%E8%87%AA%E8%A8%82Validator%E8%A6%8F%E5%89%87%E7%9A%84%E5%95%8F%E9%A1%8C-Kendo-UI-MVVM-custom-required-Validator-problem/&title=Kendo UI MVVM 自訂Validator規則的問題 | Kendo UI MVVM custom required Validator problem" target="_blank" rel="noopener"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://digg.com/submit?url=https://ian90911.github.io/2018/05/22/Kendo-UI-MVVM-%E8%87%AA%E8%A8%82Validator%E8%A6%8F%E5%89%87%E7%9A%84%E5%95%8F%E9%A1%8C-Kendo-UI-MVVM-custom-required-Validator-problem/&title=Kendo UI MVVM 自訂Validator規則的問題 | Kendo UI MVVM custom required Validator problem" target="_blank" rel="noopener"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://ian90911.github.io/2018/05/22/Kendo-UI-MVVM-%E8%87%AA%E8%A8%82Validator%E8%A6%8F%E5%89%87%E7%9A%84%E5%95%8F%E9%A1%8C-Kendo-UI-MVVM-custom-required-Validator-problem/&name=Kendo UI MVVM 自訂Validator規則的問題 | Kendo UI MVVM custom required Validator problem&description=" target="_blank" rel="noopener"><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://news.ycombinator.com/submitlink?u=https://ian90911.github.io/2018/05/22/Kendo-UI-MVVM-%E8%87%AA%E8%A8%82Validator%E8%A6%8F%E5%89%87%E7%9A%84%E5%95%8F%E9%A1%8C-Kendo-UI-MVVM-custom-required-Validator-problem/&t=Kendo UI MVVM 自訂Validator規則的問題 | Kendo UI MVVM custom required Validator problem" target="_blank" rel="noopener"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
-</ul>
-
-    </div>
-    <div id="toc">
-      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#情境"><span class="toc-number">1.</span> <span class="toc-text">情境</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#問題"><span class="toc-number">2.</span> <span class="toc-text">問題</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#解題過程"><span class="toc-number">3.</span> <span class="toc-text">解題過程</span></a></li></ol>
-    </div>
-  </span>
-</div>
-
-    
-    <div class="content index py4">
-        
-        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
-  <header>
-    
-    <h1 class="posttitle" itemprop="name headline">
-        Kendo UI MVVM 自訂Validator規則的問題 | Kendo UI MVVM custom required Validator problem
-    </h1>
+<link rel="canonical" href="https://ian90911.github.io/2018/05/22/Kendo-UI-MVVM-%E8%87%AA%E8%A8%82Validator%E8%A6%8F%E5%89%87%E7%9A%84%E5%95%8F%E9%A1%8C-Kendo-UI-MVVM-custom-required-Validator-problem/">
 
 
 
-    <div class="meta">
-      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
-        <span itemprop="name">我的程式開發筆記</span>
-      </span>
-      
-    <div class="postdate">
-      
-        <time datetime="2018-05-22T07:52:06.000Z" itemprop="datePublished">2018-05-22</time>
-        
-      
-    </div>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"https://ian90911.github.io/2018/05/22/Kendo-UI-MVVM-%E8%87%AA%E8%A8%82Validator%E8%A6%8F%E5%89%87%E7%9A%84%E5%95%8F%E9%A1%8C-Kendo-UI-MVVM-custom-required-Validator-problem/","path":"/2018/05/22/Kendo-UI-MVVM-自訂Validator規則的問題-Kendo-UI-MVVM-custom-required-Validator-problem/","title":"Kendo UI MVVM 自訂Validator規則的問題 | Kendo UI MVVM custom required Validator problem"}</script>
 
-
-      
-
-      
-    <div class="article-tag">
-        <i class="fas fa-tag"></i>
-        <a class="tag-link" href="/tags/JQuery/" rel="tag">JQuery</a>, <a class="tag-link" href="/tags/Kendo-UI/" rel="tag">Kendo UI</a>, <a class="tag-link" href="/tags/Kendo-UI-Validation/" rel="tag">Kendo UI-Validation</a>, <a class="tag-link" href="/tags/MVVM/" rel="tag">MVVM</a>, <a class="tag-link" href="/tags/javascript/" rel="tag">javascript</a>
-    </div>
-
-
-    </div>
-  </header>
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Kendo UI MVVM 自訂Validator規則的問題 | Kendo UI MVVM custom required Validator problem | 我的程式開發筆記</title>
   
 
-  <div class="content" itemprop="articleBody">
-    <h1 id="情境"><a href="#情境" class="headerlink" title="情境"></a>情境</h1><p>一個 Grid，裡面的 row 是 template，<br>按鈕除了編輯刪除，其他按鈕案出來的視窗也是 template，<br>在 template 裡面還有套 template，然後都是 MVVM 去設定事件，<br>在最尾端的一個表單，要做表單驗證，<br>有一個欄位是 radio button，多選一，當選到某值時另一文字輸入框欄位就變必填</p>
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">我的程式開發筆記</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a></li>
+  </ul>
+</nav>
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%83%85%E5%A2%83"><span class="nav-number">1.</span> <span class="nav-text">情境</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%95%8F%E9%A1%8C"><span class="nav-number">2.</span> <span class="nav-text">問題</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%A7%A3%E9%A1%8C%E9%81%8E%E7%A8%8B"><span class="nav-number">3.</span> <span class="nav-text">解題過程</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="阿燁"
+      src="https://avatars1.githubusercontent.com/u/11989158?s=460&u=23905cc56471a44e17bb541d4a2bfa888a0fcf01&v=4">
+  <p class="site-author-name" itemprop="name">阿燁</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">30</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">94</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/ian90911/" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;ian90911&#x2F;" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.facebook.com/AaYeah/" title="FB Page → https:&#x2F;&#x2F;www.facebook.com&#x2F;AaYeah&#x2F;" rel="noopener me" target="_blank"><i class="fab fa-facebook fa-fw"></i>FB Page</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:ian90911@gmail.com" title="E-Mail → mailto:ian90911@gmail.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://ian90911.github.io/2018/05/22/Kendo-UI-MVVM-%E8%87%AA%E8%A8%82Validator%E8%A6%8F%E5%89%87%E7%9A%84%E5%95%8F%E9%A1%8C-Kendo-UI-MVVM-custom-required-Validator-problem/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://avatars1.githubusercontent.com/u/11989158?s=460&u=23905cc56471a44e17bb541d4a2bfa888a0fcf01&v=4">
+      <meta itemprop="name" content="阿燁">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="我的程式開發筆記">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Kendo UI MVVM 自訂Validator規則的問題 | Kendo UI MVVM custom required Validator problem | 我的程式開發筆記">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Kendo UI MVVM 自訂Validator規則的問題 | Kendo UI MVVM custom required Validator problem
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2018-05-22 15:52:06" itemprop="dateCreated datePublished" datetime="2018-05-22T15:52:06+08:00">2018-05-22</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2020-07-12 09:23:23" itemprop="dateModified" datetime="2020-07-12T09:23:23+08:00">2020-07-12</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h1 id="情境"><a href="#情境" class="headerlink" title="情境"></a>情境</h1><p>一個 Grid，裡面的 row 是 template，<br>按鈕除了編輯刪除，其他按鈕案出來的視窗也是 template，<br>在 template 裡面還有套 template，然後都是 MVVM 去設定事件，<br>在最尾端的一個表單，要做表單驗證，<br>有一個欄位是 radio button，多選一，當選到某值時另一文字輸入框欄位就變必填</p>
 <h1 id="問題"><a href="#問題" class="headerlink" title="問題"></a>問題</h1><p>如何在 MVVM 的 model 中套用這個特定的 required 驗證</p>
-<h1 id="解題過程"><a href="#解題過程" class="headerlink" title="解題過程"></a>解題過程</h1><p>我原本找到去擴充 model binding 的 binder 方法的方向<br><a href="https://stackoverflow.com/questions/15945755/set-tag-attribute-based-on-variable-value-with-kendo-binding/15947852#15947852" target="_blank" rel="noopener">https://stackoverflow.com/questions/15945755/set-tag-attribute-based-on-variable-value-with-kendo-binding/15947852#15947852</a><br>但他要做一個 html 元件的跟一個 widget 的，名字還有邏輯，沒搞太懂；</p>
+<h1 id="解題過程"><a href="#解題過程" class="headerlink" title="解題過程"></a>解題過程</h1><p>我原本找到去擴充 model binding 的 binder 方法的方向<br><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/15945755/set-tag-attribute-based-on-variable-value-with-kendo-binding/15947852#15947852">https://stackoverflow.com/questions/15945755/set-tag-attribute-based-on-variable-value-with-kendo-binding/15947852#15947852</a><br>但他要做一個 html 元件的跟一個 widget 的，名字還有邏輯，沒搞太懂；</p>
 <p>後來轉向套用 validator 在表單上，雖然不太 MVVM，但是可解的方法，<br>可是這個必填欄位不知為何在執行驗證時會跳<br><code>n[t].call is not a function</code><br>錯誤，後來發現 <strong>不能把 validator 用的物件放在你的 MVVM ViewModel</strong>，<br>他在執行遍歷驗證時會抓到 observable 的一些屬性但無法辨識(例如<code>_events</code>)然後就跳那個錯誤，<br>我本來以為 MVVM 就是你用到的東西都塞 MODEL 裡就對了，不過這個情境應該不是這樣放…<br>再來是自訂驗證規則名稱的雷，<br>我原本取名<code>PayAccountRequired</code>，結果竟然讓 input 不是 required 也套上 required 屬性，整個鬼打牆找了很久，後來把規則名稱改成<code>PayAccountRule</code>，竟然就正常了….</p>
 <p>從來沒想到這個驗證會讓我卡好幾個小時….</p>
-<p>完成的範例<br><a href="http://jsfiddle.net/o8ym26jj/2/" target="_blank" rel="noopener">http://jsfiddle.net/o8ym26jj/2/</a></p>
+<p>完成的範例<br><a target="_blank" rel="noopener" href="http://jsfiddle.net/o8ym26jj/2/">http://jsfiddle.net/o8ym26jj/2/</a></p>
 
-  </div>
-</article>
+    </div>
 
+    
+    
+    
 
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/javascript/" rel="tag"># javascript</a>
+              <a href="/tags/Kendo-UI/" rel="tag"># Kendo UI</a>
+              <a href="/tags/Kendo-UI-Validation/" rel="tag"># Kendo UI-Validation</a>
+              <a href="/tags/JQuery/" rel="tag"># JQuery</a>
+              <a href="/tags/MVVM/" rel="tag"># MVVM</a>
+          </div>
 
         
-          <div id="footer-post-container">
-  <div id="footer-post">
 
-    <div id="nav-footer" style="display: none">
-      <ul>
-         
-          <li><a href="/">Home</a></li>
-         
-          <li><a href="/about/">About</a></li>
-         
-          <li><a href="/archives/">Writing</a></li>
-         
-          <li><a href="/projects_url">Projects</a></li>
-        
-      </ul>
-    </div>
-
-    <div id="toc-footer" style="display: none">
-      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#情境"><span class="toc-number">1.</span> <span class="toc-text">情境</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#問題"><span class="toc-number">2.</span> <span class="toc-text">問題</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#解題過程"><span class="toc-number">3.</span> <span class="toc-text">解題過程</span></a></li></ol>
-    </div>
-
-    <div id="share-footer" style="display: none">
-      <ul>
-  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://ian90911.github.io/2018/05/22/Kendo-UI-MVVM-%E8%87%AA%E8%A8%82Validator%E8%A6%8F%E5%89%87%E7%9A%84%E5%95%8F%E9%A1%8C-Kendo-UI-MVVM-custom-required-Validator-problem/" target="_blank" rel="noopener"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://twitter.com/share?url=https://ian90911.github.io/2018/05/22/Kendo-UI-MVVM-%E8%87%AA%E8%A8%82Validator%E8%A6%8F%E5%89%87%E7%9A%84%E5%95%8F%E9%A1%8C-Kendo-UI-MVVM-custom-required-Validator-problem/&text=Kendo UI MVVM 自訂Validator規則的問題 | Kendo UI MVVM custom required Validator problem" target="_blank" rel="noopener"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://ian90911.github.io/2018/05/22/Kendo-UI-MVVM-%E8%87%AA%E8%A8%82Validator%E8%A6%8F%E5%89%87%E7%9A%84%E5%95%8F%E9%A1%8C-Kendo-UI-MVVM-custom-required-Validator-problem/&title=Kendo UI MVVM 自訂Validator規則的問題 | Kendo UI MVVM custom required Validator problem" target="_blank" rel="noopener"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://ian90911.github.io/2018/05/22/Kendo-UI-MVVM-%E8%87%AA%E8%A8%82Validator%E8%A6%8F%E5%89%87%E7%9A%84%E5%95%8F%E9%A1%8C-Kendo-UI-MVVM-custom-required-Validator-problem/&is_video=false&description=Kendo UI MVVM 自訂Validator規則的問題 | Kendo UI MVVM custom required Validator problem" target="_blank" rel="noopener"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=Kendo UI MVVM 自訂Validator規則的問題 | Kendo UI MVVM custom required Validator problem&body=Check out this article: https://ian90911.github.io/2018/05/22/Kendo-UI-MVVM-%E8%87%AA%E8%A8%82Validator%E8%A6%8F%E5%89%87%E7%9A%84%E5%95%8F%E9%A1%8C-Kendo-UI-MVVM-custom-required-Validator-problem/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://getpocket.com/save?url=https://ian90911.github.io/2018/05/22/Kendo-UI-MVVM-%E8%87%AA%E8%A8%82Validator%E8%A6%8F%E5%89%87%E7%9A%84%E5%95%8F%E9%A1%8C-Kendo-UI-MVVM-custom-required-Validator-problem/&title=Kendo UI MVVM 自訂Validator規則的問題 | Kendo UI MVVM custom required Validator problem" target="_blank" rel="noopener"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://reddit.com/submit?url=https://ian90911.github.io/2018/05/22/Kendo-UI-MVVM-%E8%87%AA%E8%A8%82Validator%E8%A6%8F%E5%89%87%E7%9A%84%E5%95%8F%E9%A1%8C-Kendo-UI-MVVM-custom-required-Validator-problem/&title=Kendo UI MVVM 自訂Validator規則的問題 | Kendo UI MVVM custom required Validator problem" target="_blank" rel="noopener"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://ian90911.github.io/2018/05/22/Kendo-UI-MVVM-%E8%87%AA%E8%A8%82Validator%E8%A6%8F%E5%89%87%E7%9A%84%E5%95%8F%E9%A1%8C-Kendo-UI-MVVM-custom-required-Validator-problem/&title=Kendo UI MVVM 自訂Validator規則的問題 | Kendo UI MVVM custom required Validator problem" target="_blank" rel="noopener"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://digg.com/submit?url=https://ian90911.github.io/2018/05/22/Kendo-UI-MVVM-%E8%87%AA%E8%A8%82Validator%E8%A6%8F%E5%89%87%E7%9A%84%E5%95%8F%E9%A1%8C-Kendo-UI-MVVM-custom-required-Validator-problem/&title=Kendo UI MVVM 自訂Validator規則的問題 | Kendo UI MVVM custom required Validator problem" target="_blank" rel="noopener"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://ian90911.github.io/2018/05/22/Kendo-UI-MVVM-%E8%87%AA%E8%A8%82Validator%E8%A6%8F%E5%89%87%E7%9A%84%E5%95%8F%E9%A1%8C-Kendo-UI-MVVM-custom-required-Validator-problem/&name=Kendo UI MVVM 自訂Validator規則的問題 | Kendo UI MVVM custom required Validator problem&description=" target="_blank" rel="noopener"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://news.ycombinator.com/submitlink?u=https://ian90911.github.io/2018/05/22/Kendo-UI-MVVM-%E8%87%AA%E8%A8%82Validator%E8%A6%8F%E5%89%87%E7%9A%84%E5%95%8F%E9%A1%8C-Kendo-UI-MVVM-custom-required-Validator-problem/&t=Kendo UI MVVM 自訂Validator規則的問題 | Kendo UI MVVM custom required Validator problem" target="_blank" rel="noopener"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
-</ul>
-
-    </div>
-
-    <div id="actions-footer">
-        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
-        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
-        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
-        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
-    </div>
-
-  </div>
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2018/05/14/%E6%9C%AC%E6%A9%9F%E9%96%8B%E7%99%BC-IIS-Express%E7%9A%84%E8%99%9B%E6%93%AC%E7%9B%AE%E9%8C%84%E5%A4%B1%E6%95%88%E7%9A%84%E5%95%8F%E9%A1%8C-IIS-Express-virtual-directory-setting-not-work/" rel="prev" title="本機開發 IIS Express的虛擬目錄失效的問題 | IIS Express virtual directory setting not work">
+                  <i class="fa fa-angle-left"></i> 本機開發 IIS Express的虛擬目錄失效的問題 | IIS Express virtual directory setting not work
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2018/07/10/GIT%E5%B8%B8%E7%94%A8%E6%8C%87%E4%BB%A4%E7%AD%86%E8%A8%98/" rel="next" title="GIT常用指令筆記">
+                  GIT常用指令筆記 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
 </div>
 
-        
-        <footer id="footer">
-  <div class="footer-left">
-    Copyright &copy;
-    
-    
-    2016-2020
-    阿燁
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2023</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">阿燁</span>
   </div>
-  <div class="footer-right">
-    <nav>
-      <ul>
-         
-          <li><a href="/">Home</a></li>
-         
-          <li><a href="/about/">About</a></li>
-         
-          <li><a href="/archives/">Writing</a></li>
-         
-          <li><a href="/projects_url">Projects</a></li>
-        
-      </ul>
-    </nav>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a>
   </div>
-</footer>
 
     </div>
-    <!-- styles -->
-
-<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
-
-
-<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
-
-
-    <!-- jquery -->
-
-<script src="/lib/jquery/jquery.min.js"></script>
-
-
-<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
-
-<!-- clipboard -->
+  </footer>
 
   
-<script src="/lib/clipboard/clipboard.min.js"></script>
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
 
-  <script type="text/javascript">
-  $(function() {
-    // copy-btn HTML
-    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
-    btn += '<i class="far fa-clone"></i>';
-    btn += '</span>'; 
-    // mount it!
-    $(".highlight table").before(btn);
-    var clip = new ClipboardJS('.btn-copy', {
-      text: function(trigger) {
-        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
-      }
-    });
-    clip.on('success', function(e) {
-      e.trigger.setAttribute('aria-label', "Copied!");
-      e.clearSelection();
-    })
-  })
-  </script>
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
 
 
-<script src="/js/main.js"></script>
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
 
-<!-- search -->
+  
 
-<!-- Google Analytics -->
 
-<!-- Baidu Analytics -->
 
-<!-- Disqus Comments -->
+
+
+
+  
+
+
+
 
 
 </body>
